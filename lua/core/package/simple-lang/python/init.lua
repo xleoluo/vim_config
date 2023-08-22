@@ -47,7 +47,7 @@ M.efm_ls = {
     linter = {
         exe = "pylint",
         args = {
-            "--rcfile=" .. api.path.generate_absolute_path("./pylintrc"),
+            "--rcfile=" .. api.path.generate_absolute_path("./linter/pylintrc"),
         },
         enable = false,
     },

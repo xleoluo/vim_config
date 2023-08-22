@@ -1,4 +1,4 @@
--- https://github.com/microsoft/pylance-release
+-- https://github.com/microsoft/pyright
 
 local api = require("utils.api")
 local util = require("lspconfig.util")
@@ -28,7 +28,8 @@ local ignore_diagnostic_message = {
 return {
     filetypes = { "python" },
     single_file_support = true,
-    -- cmd = { "pylance-langserver", "--stdio" },
+    cmd = { "pyright-langserver", "--stdio" },
+    ---@diagnostic disable-next-line: deprecated
     root_dir = util.root_pattern(unpack(root_files)),
     handlers = {
         -- If you want to disable pyright's diagnostic prompt, open the code below
@@ -68,14 +69,6 @@ return {
                     reportMissingImports = "error",
                     reportUndefinedVariable = "error",
                     reportAssertAlwaysTrue = "error",
-                },
-
-                -- pylance
-                inlayHints = {
-                    variableTypes = true,
-                    functionReturnTypes = true,
-                    pytestParameters = true,
-                    callArgumentNames = true,
                 },
             },
         },

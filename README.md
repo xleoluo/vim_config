@@ -21,7 +21,8 @@ Follow these steps to start using SimpleNvim:
 2. Clone the Repository: Clone the SimpleNvim repository to your local machine using the following command:
 
 ```sh
-$ git clone https://github.com/askfiy/SimpleNvim.git
+$ git clone https://github.com/askfiy/SimpleNvim.git ~/.config
+$ mv ~/.config/SimpleNvim ~/.config/nvim
 ```
 
 3. When you open Neovim, it automatically downloads most of the dependencies.

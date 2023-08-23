@@ -68,7 +68,7 @@ function M.scroll_docs_to_up(map)
                     or cursor_line == 1
                 then
                     vim.api.nvim_echo(
-                        { { "Can't scroll up", "MoreMsg" } },
+                        { { "Can't scroll up", "WarningMsg" } },
                         false,
                         {}
                     )
@@ -130,7 +130,7 @@ function M.scroll_docs_to_down(map)
                     or cursor_line == buffer_total_line
                 then
                     vim.api.nvim_echo(
-                        { { "Can't scroll down", "MoreMsg" } },
+                        { { "Can't scroll down", "WarningMsg" } },
                         false,
                         {}
                     )

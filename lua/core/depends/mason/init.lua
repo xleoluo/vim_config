@@ -49,7 +49,7 @@ function M.after()
                 )
             then
                 vim.notify(
-                    ("[mason.nvim] invalid package name %s"):format(
+                    ("[mason.nvim] invalid package name <%s>"):format(
                         mason_pack_name
                     ),
                     "ERROR",
@@ -58,7 +58,7 @@ function M.after()
             else
                 M.mason_registry.get_package(mason_pack_name):install()
                 vim.notify(
-                    ("[mason.nvim] installing %s"):format(mason_pack_name),
+                    ("[mason.nvim] installing <%s>"):format(mason_pack_name),
                     "INFO",
                     { title = "mason.nvim" }
                 )

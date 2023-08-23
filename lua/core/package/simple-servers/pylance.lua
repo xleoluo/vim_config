@@ -10,6 +10,7 @@ local get_script_path = function()
     )
 
     -- After an upgrade the old plugin might linger for a while.
+    ---@diagnostic disable-next-line: param-type-mismatch
     table.sort(scripts, function(a, b)
         return a > b
     end)

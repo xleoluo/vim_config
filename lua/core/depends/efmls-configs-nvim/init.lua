@@ -42,6 +42,7 @@ function M.after()
         for _, client in ipairs(vim.lsp.get_clients()) do
             if client.name == "efm" then
                 aux.progress_notify(client.id, aux.get_efmls_formatter_name())
+                break
             end
         end
     end

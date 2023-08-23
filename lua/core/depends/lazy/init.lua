@@ -2,14 +2,7 @@
 
 local api = require("utils.api")
 
-local M = {
-    lazy = nil,
-}
-
-local ignore_pack_array = {
-    "init",
-    "lazy",
-}
+local M = {}
 
 local function get_lazy_options()
     return {
@@ -83,7 +76,7 @@ function M.load()
         )
     do
         assert(
-            not not pack.lazy,
+            pack.lazy,
             ("package <%s> require 'lazy' attribute"):format(pack_name)
         )
 

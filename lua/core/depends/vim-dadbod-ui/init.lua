@@ -33,9 +33,7 @@ function M.register_maps()
         {
             mode = { "n" },
             lhs = "<leader>3",
-            rhs = function()
-                vim.cmd("DBUIToggle")
-            end,
+            rhs = "<cmd>DBUIToggle<cr>",
             options = { silent = true },
             description = "Open Database Explorer",
         },

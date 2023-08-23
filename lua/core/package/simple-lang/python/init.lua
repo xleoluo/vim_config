@@ -22,11 +22,11 @@ M.treesitter = {
 }
 
 M.lspconfig = {
-    server = "pyright",
-    config = api.path.generate_relative_path("./pyright"),
+    -- server = "pyright",
+    -- config = api.path.generate_relative_path("./pyright"),
     -----
-    -- server = "pylance",
-    -- config = api.path.generate_relative_path("./pylance"),
+    server = "pylance",
+    config = api.path.generate_relative_path("./pylance"),
 }
 
 M.dapconfig = {

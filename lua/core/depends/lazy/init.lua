@@ -74,53 +74,39 @@ function M.load()
     M.lazy = require("lazy")
     local lazy_load_pack = api.get_lang().get_lazy_install()
 
-    for _, pack_path in
-        ipairs(
-            ---@diagnostic disable-next-line: param-type-mismatch
-            api.path.listdir(api.path.generate_absolute_path("../"))
+    for pack_name, pack in
+        pairs(
+            api.fn.get_package_from_directory(
+                api.path.generate_absolute_path("../"),
+                { "lazy" }
+            )
         )
     do
-        local pack_name = vim.fn.fnamemodify(pack_path, ":t:r")
-        if not vim.tbl_contains(ignore_pack_array, pack_name) then
-            local ok, pack = pcall(
-                require,
-                api.path.join(
-                    api.get_setting().get_depend_base_path(),
-                    pack_name
-                )
-            )
+        assert(
+            not not pack.lazy,
+            ("package <%s> require 'lazy' attribute"):format(pack_name)
+        )
 
-            if ok then
-                assert(
-                    pack.lazy,
-                    ("package %s require lazy attribute"):format(pack_name)
-                )
-
-                pack.lazy.init = pack.lazy.init
-                    or function()
-                        if pack.register_maps then
-                            pack.register_maps()
-                        end
-                    end
-
-                pack.lazy.config = pack.lazy.config
-                    or function()
-                        if pack.init then
-                            pack.init()
-                        end
-                        if pack.load then
-                            pack.load()
-                        end
-                        if pack.after then
-                            pack.after()
-                        end
-                    end
-            else
-                local err = pack
-                vim.api.nvim_echo({ { err, "ErrorMsg" } }, true, {})
+        pack.lazy.init = pack.lazy.init
+            or function()
+                if pack.register_maps then
+                    pack.register_maps()
+                end
             end
-            table.insert(lazy_load_pack, pack.lazy)
-        end
+
+        pack.lazy.config = pack.lazy.config
+            or function()
+                if pack.init then
+                    pack.init()
+                end
+                if pack.load then
+                    pack.load()
+                end
+                if pack.after then
+                    pack.after()
+                end
+            end
+        table.insert(lazy_load_pack, pack.lazy)
     end
 
     M.lazy.setup(lazy_load_pack, get_lazy_options())

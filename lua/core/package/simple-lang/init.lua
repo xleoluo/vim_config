@@ -2,29 +2,19 @@ local M = {
     lang_pack_array = {},
 }
 
-local ignore_pack_array = {
-    "init",
-}
-
 function M.get_lang_pack()
     local api = require("utils.api")
 
     if vim.tbl_isempty(M.lang_pack_array) then
 
-        local lang_pack_paths =
-            api.path.listdir(api.path.generate_absolute_path("../simple-lang"))
-
         ---@diagnostic disable-next-line: param-type-mismatch
-        for _, lang_pack_path in ipairs(lang_pack_paths) do
-            local lang_pack_name = vim.fn.fnamemodify(lang_pack_path, ":t:r")
-            if not vim.tbl_contains(ignore_pack_array, lang_pack_name) then
-                local lang_pack = require(
-                    api.path.generate_relative_path("./" .. lang_pack_name)
-                )
+        local lang_pack_mapping = api.fn.get_package_from_directory(
+            api.path.generate_absolute_path("../simple-lang/")
+        )
 
-                ---@diagnostic disable-next-line: need-check-nil
-                M.lang_pack_array[lang_pack_name] = lang_pack
-            end
+        for lang_pack_name, lang_pack in pairs(lang_pack_mapping) do
+            ---@diagnostic disable-next-line: need-check-nil
+            M.lang_pack_array[lang_pack_name] = lang_pack
         end
     end
 

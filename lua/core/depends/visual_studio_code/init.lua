@@ -7,7 +7,7 @@ local M = {}
 M.lazy = {
     "askfiy/visual_studio_code",
     priority = 100,
-    enabled = true,
+    cond = true,
 }
 
 function M.init()
@@ -48,6 +48,8 @@ function M.load()
             after = function(conf, colors, utils) end,
         },
     })
+
+    vim.cmd([[colorscheme visual_studio_code]])
 end
 
 function M.after() end

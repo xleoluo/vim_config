@@ -6,7 +6,6 @@ function M.get_lang_pack()
     local api = require("utils.api")
 
     if vim.tbl_isempty(M.lang_pack_array) then
-
         ---@diagnostic disable-next-line: param-type-mismatch
         local lang_pack_mapping = api.fn.get_package_from_directory(
             api.path.generate_absolute_path("../simple-lang/")
@@ -58,3 +57,4 @@ function M.get_treesitter_install()
 end
 
 return M
+

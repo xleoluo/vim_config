@@ -27,7 +27,7 @@ M.lazy = {
             )
             vim.keymap.set(
                 { "n" },
-                "<leader>uc",
+                "<leader>uf",
                 "<cmd>lua require('nvim-picgo').upload_imagefile()<cr>",
                 { silent = true, desc = "Upload image from disk file" }
             )

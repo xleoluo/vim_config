@@ -1,3 +1,5 @@
+---@diagnostic disable: undefined-global
+
 local M = {}
 
 function M.get_all_window_buffer_filetype()
@@ -51,6 +53,17 @@ function M.get_package_from_directory(dir_path, ignore_package_array)
     end
 
     return package_mapping
+end
+
+function M.create_file(p)
+    local file = io.open(p, "r")
+    if file then
+        file:close()
+    else
+        local n_file = io.open(p, "w")
+        ---@diagnostic disable-next-line: need-check-nil
+        n_file:close()
+    end
 end
 
 return M

@@ -37,8 +37,17 @@ function M.load()
 end
 
 function M.after()
-    -- synchronous refresh
-    M.mason_registry.refresh()
+    local ref_lock_file = api.path.join(
+        api.get_setting().get_mason_install_path(),
+        "refresh.lock"
+    )
+
+    if not api.path.exists(ref_lock_file) then
+        M.mason_registry.refresh()
+        api.fn.create_file(ref_lock_file)
+    else
+        M.mason_registry.update()
+    end
 
     for _, mason_pack_name in ipairs(api.get_lang().get_mason_install()) do
         if not M.mason_registry.is_installed(mason_pack_name) then

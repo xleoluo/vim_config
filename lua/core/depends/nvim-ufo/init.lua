@@ -23,7 +23,7 @@ function M.load()
         close_fold_kinds = {},
         ---@diagnostic disable-next-line: unused-local
         provider_selector = function(bufnr, filetype, buftype)
-            return { "treesitter", "indent" }
+            return { "lsp", "indent" }
         end,
         fold_virt_text_handler = aux.fold_virtual_text_handler,
     })

@@ -43,7 +43,13 @@ function M.load()
         },
         hooks = {
             ---@diagnostic disable-next-line: unused-local
-            before = function(conf, colors, utils) end,
+            before = function(conf, colors, utils)
+                if api.get_setting().is_float_border() then
+                    local viscode_background = colors.__vscode_background
+                    --
+                    colors.__vscode_local_background = viscode_background
+                end
+            end,
             ---@diagnostic disable-next-line: unused-local
             after = function(conf, colors, utils) end,
         },

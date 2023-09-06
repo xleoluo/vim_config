@@ -21,8 +21,8 @@ function M.load()
             "regex",
             "treesitter",
         },
-        -- TODO: filetype - 2023-08-21 -
         filetypes_denylist = {
+            "qf",
             "NvimTree",
             "aerial",
             "spectre_panel",

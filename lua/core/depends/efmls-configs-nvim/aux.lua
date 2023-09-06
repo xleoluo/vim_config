@@ -10,7 +10,8 @@ local defaut_formatter = {
 }
 
 local default_linter = {
-    prefix = "unknow",
+    prefix = "efmls",
+    lintSource = "default source",
     lintCommand = "default linter",
     lintFormats = {},
     rootMarkers = {},
@@ -75,7 +76,6 @@ function M.get_efmls_conf()
 
     local efmls_conf = {}
 
-    -- TODO: default package  - 2023-08-22 -
     for _, lang_pack in ipairs(api.get_lang().get_lang_pack()) do
         if not vim.tbl_isempty(lang_pack.efm_ls) then
             local fmt = lang_pack.efm_ls.formatter
@@ -92,6 +92,7 @@ function M.get_efmls_conf()
 
                     if not vim.tbl_isempty(fmt.args) then
                         local args = table.concat(fmt.args, " ")
+                        ---@diagnostic disable-next-line: missing-parameter
                         local exe = fs.executable(fmt.exe)
                         fmt_package.formatCommand = ("%s %s"):format(exe, args)
                     end
@@ -107,8 +108,11 @@ function M.get_efmls_conf()
 
                     if not vim.tbl_isempty(linter.args) then
                         local args = table.concat(linter.args, " ")
+                        ---@diagnostic disable-next-line: missing-parameter
                         local exe = fs.executable(linter.exe)
                         linter_package.lintCommand = ("%s %s"):format(exe, args)
+                        linter_package.lintSource = linter.prefix
+                            or linter_package.prefix
                     end
 
                     table.insert(efmls_conf[filetype], linter_package)

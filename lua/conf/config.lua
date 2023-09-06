@@ -17,6 +17,17 @@ return {
                 Hint = "󰋽",
             },
         },
+        comment = {
+            enable = false,
+            groups = {
+                Note = "󱞁",
+                Todo = "",
+                Warn = "",
+                Error = "ﰡ",
+                Hack = "󱜯",
+                Fix = "ﮉ",
+            },
+        },
         kind = {
             enable = true,
             groups = {

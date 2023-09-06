@@ -80,6 +80,12 @@ function M.get_sorting_conf()
 end
 
 function M.get_formatting_conf()
+    if not api.get_setting().is_enable_icon_groups("kind") then
+        return {}
+    end
+
+    ----
+
     local icons = api.get_setting().get_icon_groups("kind", false)
     local default_icon = icons["Default"]
 

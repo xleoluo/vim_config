@@ -21,6 +21,8 @@ local default_linter = {
 function M.progress_notify(client_id, message)
     local fn = vim.lsp.handlers["$/progress"]
     local token = os.time()
+
+    math.randomseed(token)
     local random = math.random(0, 5)
 
     -- Send the initial progress notification

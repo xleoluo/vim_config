@@ -7,7 +7,7 @@ require("core.depends")
 
 -- neovide settings
 if vim.g.neovide then
-    vim.o.guifont = "GoMono Nerd Font:h9"
+    vim.o.guifont = "BlexMono Nerd Font:h9"
 
     vim.opt.linespace = 0
     vim.g.neovide_refresh_rate_idle = 5

@@ -15,6 +15,10 @@ M.lazy = {
 
 function M.init()
     M.ufo = require("ufo")
+    M.filetype_foldmethod = {
+        default = { "lsp", "indent" },
+        markdown = { "treesitter", "indent" },
+    }
 end
 
 function M.load()
@@ -23,7 +27,12 @@ function M.load()
         close_fold_kinds = {},
         ---@diagnostic disable-next-line: unused-local
         provider_selector = function(bufnr, filetype, buftype)
-            return { "lsp", "indent" }
+            if
+                vim.tbl_contains(vim.tbl_keys(M.filetype_foldmethod), filetype)
+            then
+                return M.filetype_foldmethod[filetype]
+            end
+            return M.filetype_foldmethod["default"]
         end,
         fold_virt_text_handler = aux.fold_virtual_text_handler,
     })

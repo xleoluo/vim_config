@@ -51,7 +51,16 @@ function M.load()
                 end
             end,
             ---@diagnostic disable-next-line: unused-local
-            after = function(conf, colors, utils) end,
+            after = function(conf, colors, utils)
+                if api.get_setting().is_float_border() then
+                    local __vscode_local_background = "#252526"
+                    --
+                    utils.hl.set(
+                        "BufferLineFill",
+                        { bg = __vscode_local_background }
+                    )
+                end
+            end,
         },
     })
 

@@ -43,6 +43,17 @@ return {
             }
         ),
     },
+    on_attach = function(client, bufnr)
+        vim.api.nvim_create_autocmd({ "InsertEnter" }, {
+            buffer = bufnr,
+            callback = function()
+                client.notify(
+                    "workspace/didChangeConfiguration",
+                    { settings = client.config.settings }
+                )
+            end,
+        })
+    end,
     settings = {
         python = {
             analysis = {

@@ -58,7 +58,7 @@ function M.load()
                 restrict_above_cwd = false,
             },
             open_file = {
-                resize_window = true,
+                resize_window = false,
                 window_picker = {
                     enable = true,
                 },

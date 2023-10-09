@@ -19,14 +19,12 @@ M.dapconfig = {
     config = api.path.generate_relative_path("./dapconfig"),
 }
 
-M.efm_ls = {
-    filetype = { "rust" },
-    formatter = {
+M.null_ls = {
+    formatting = {
         exe = "rustfmt",
-        args = {},
+        extra_args = {},
         enable = true,
     },
-    linter = {},
 }
 
 return M

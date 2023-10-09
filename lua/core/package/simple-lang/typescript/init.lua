@@ -44,19 +44,12 @@ M.dapconfig = {
     config = api.path.generate_relative_path("./dapconfig"),
 }
 
-M.efm_ls = {
-    filetype = {
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-    },
-    formatter = {
+M.null_ls = {
+    formatting = {
         exe = "prettier",
-        args = {},
-        enable = true,
-    },
-    linter = {},
+        extra_args = {},
+        enable = true
+    }
 }
 
 return M

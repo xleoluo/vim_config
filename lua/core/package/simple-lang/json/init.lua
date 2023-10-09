@@ -20,14 +20,12 @@ M.dapconfig = {
     config = {},
 }
 
-M.efm_ls = {
-    filetype = { "json", "jsonc" },
-    formatter = {
+M.null_ls = {
+    formatting = {
         exe = "prettier",
-        args = {},
-        enable = true,
-    },
-    linter = {},
+        extra_args = {},
+        enable = true
+    }
 }
 
 return M

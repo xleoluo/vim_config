@@ -15,6 +15,6 @@ M.dapconfig = {
     config = {},
 }
 
-M.efm_ls = {}
+M.null_ls = {}
 
 return M

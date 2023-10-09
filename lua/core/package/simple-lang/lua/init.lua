@@ -27,20 +27,16 @@ M.dapconfig = {
     config = {},
 }
 
-M.efm_ls = {
-    filetype = { "lua" },
-    formatter = {
+M.null_ls = {
+    formatting  = {
         exe = "stylua",
-        args = {
-            "--search-parent-directories",
+        extra_args = {
             "--indent-type=Spaces",
             "--indent-width=4",
             "--column-width=80",
-            "-",
         },
         enable = true,
     },
-    linter = {},
 }
 
 return M

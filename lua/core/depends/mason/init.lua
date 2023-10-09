@@ -61,6 +61,7 @@ function M.after()
                     ("[mason.nvim] invalid package name <%s>"):format(
                         mason_pack_name
                     ),
+                    ---@diagnostic disable-next-line: param-type-mismatch
                     "ERROR",
                     { title = "mason.nvim" }
                 )
@@ -68,6 +69,7 @@ function M.after()
                 M.mason_registry.get_package(mason_pack_name):install()
                 vim.notify(
                     ("[mason.nvim] installing <%s>"):format(mason_pack_name),
+                    ---@diagnostic disable-next-line: param-type-mismatch
                     "INFO",
                     { title = "mason.nvim" }
                 )

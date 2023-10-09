@@ -33,23 +33,21 @@ M.dapconfig = {
     config = api.path.generate_relative_path("./dapconfig"),
 }
 
-M.efm_ls = {
-    filetype = { "python" },
-    formatter = {
+M.null_ls = {
+    formatting = {
         exe = "autopep8",
-        args = {
+        extra_args = {
             "-a",
             "--max-line-length=120",
-            "-",
         },
-        enable = true,
+        enable = true
     },
-    linter = {
+    diagnostics = {
         exe = "pylint",
-        args = {
+        extra_args = {
             "--rcfile=" .. api.path.generate_absolute_path("./linter/pylintrc"),
         },
-        enable = false,
+        enable = false
     },
 }
 

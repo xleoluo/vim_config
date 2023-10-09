@@ -19,14 +19,12 @@ M.dapconfig = {
     config = {},
 }
 
-M.efm_ls = {
-    filetype = { "sh", "zsh" },
-    formatter = {
+M.null_ls = {
+    formatting = {
         exe = "shfmt",
-        args = {},
-        enable = true,
-    },
-    linter = {},
+        extra_args = {},
+        enable = true
+    }
 }
 
 return M

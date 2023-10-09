@@ -24,17 +24,15 @@ M.dapconfig = {
     config = api.path.generate_relative_path("./dapconfig"),
 }
 
-M.efm_ls = {
-    filetype = { "c", "cpp" },
-    formatter = {
+M.null_ls = {
+    formatting = {
         exe = "clang_format",
-        args = {
+        extra_args = {
             "--style",
             "{IndentWidth: 4}",
         },
-        enable = true,
-    },
-    linter = {},
+        enable = true
+    }
 }
 
 return M

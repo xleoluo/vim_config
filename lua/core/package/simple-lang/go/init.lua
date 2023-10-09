@@ -24,14 +24,12 @@ M.dapconfig = {
     config = api.path.generate_relative_path("./dapconfig"),
 }
 
-M.efm_ls = {
-    filetype = { "go" },
-    formatter = {
+M.null_ls = {
+    formatting = {
         exe = "gofmt",
-        args = {},
-        enable = true,
-    },
-    linter = {},
+        extra_args = {},
+        enable = true
+    }
 }
 
 return M

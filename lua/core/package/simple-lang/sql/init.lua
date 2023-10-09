@@ -19,16 +19,14 @@ M.dapconfig = {
     config = {},
 }
 
-M.efm_ls = {
-    filetype = { "sql" },
-    formatter = {
-        exe = "sql-formatter",
-        args = {
+M.null_ls = {
+    formatting = {
+        exe = "sql_formatter",
+        extra_args = {
             "-l=postgresql",
         },
         enable = true,
     },
-    linter = {},
 }
 
 return M

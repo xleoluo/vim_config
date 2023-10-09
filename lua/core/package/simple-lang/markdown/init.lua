@@ -44,29 +44,16 @@ M.treesitter = {
 }
 
 M.lspconfig = {
-    server = "grammarly",
+    server = "tailwindcss",
     config = {},
 }
 
-M.dapconfig = {
-    config = {},
-}
-
-M.efm_ls = {
-    filetype = { "markdown", "markdown.mdx" },
-    formatter = {
+M.null_ls = {
+    formatting = {
         exe = "prettier",
-        args = {
-            "--stdin",
-            "--stdin-filepath",
-            "${INPUT}",
-            "${--range-start:charStart}",
-            "${--range-end:charEnd}",
-            "${--tab-width:=2}",
-        },
+        extra_args = {},
         enable = true,
     },
-    linter = {},
 }
 
 return M

@@ -11,7 +11,7 @@ if vim.g.neovide then
 
     vim.opt.linespace = 0
     vim.g.neovide_refresh_rate_idle = 5
-    vim.g.neovide_refresh_rate = 60
+    vim.g.neovide_refresh_rate = 144
 
     vim.g.neovide_confirm_quit = false
 
@@ -19,7 +19,7 @@ if vim.g.neovide then
     vim.g.neovide_cursor_trail_size = 0.6
 
     vim.g.neovide_cursor_antialiasing = true
-    vim.g.neovide_cursor_animate_in_insert_mode = true
+        vim.g.neovide_cursor_animate_in_insert_mode = true
     vim.g.neovide_cursor_animate_command_line = true
 
     vim.g.neovide_cursor_vfx_mode = "torpedo"

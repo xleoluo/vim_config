@@ -45,7 +45,7 @@ function M.get_lang_install(install_name)
 end
 
 function M.get_lazy_install()
-    return M.get_lang_install("lazy")
+    return M.get_lang_install("lazys")
 end
 
 function M.get_mason_install()

@@ -2,7 +2,7 @@ local api = require("utils.api")
 
 local M = {}
 
-M.lazy = {
+M.lazys = {
     {
         "folke/neodev.nvim",
         priority = 80,

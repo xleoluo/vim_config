@@ -1,6 +1,6 @@
 local M = {}
 
-M.lazy = {
+M.lazys = {
     {
         "davidgranstrom/nvim-markdown-preview",
         ft = { "markdown" },
@@ -14,7 +14,6 @@ M.lazy = {
     },
     {
         "askfiy/nvim-picgo",
-        lazy = true,
         ft = { "markdown" },
         config = function()
             require("nvim-picgo").setup()

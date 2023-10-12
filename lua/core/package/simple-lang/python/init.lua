@@ -2,7 +2,7 @@ local api = require("utils.api")
 
 local M = {}
 
-M.lazy = {
+M.lazys = {
     {
         "Vimjas/vim-python-pep8-indent",
         ft = { "python" },

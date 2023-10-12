@@ -1,6 +1,6 @@
 local M = {}
 
-M.lazy = {}
+M.lazys = {}
 
 M.mason = {
     "shfmt",

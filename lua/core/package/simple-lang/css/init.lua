@@ -1,6 +1,14 @@
 local M = {}
 
-M.lazy = {}
+M.lazys = {
+    {
+        "askfiy/neovim-easy-less",
+        ft = { "less" },
+        config = function()
+            require("easy-less").setup()
+        end,
+    },
+}
 
 M.mason = {
     "prettier",
@@ -23,8 +31,8 @@ M.null_ls = {
     formatting = {
         exe = "prettier",
         extra_args = {},
-        enable = true
-    }
+        enable = true,
+    },
 }
 
 return M

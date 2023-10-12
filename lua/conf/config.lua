@@ -81,5 +81,9 @@ return {
             name = "Singapore Xizi",
             url = "postgres://postgres:123@10.10.100.38:5432/xjpxz",
         },
+        {
+            name = "Kober",
+            url = "postgres://postgres:123@10.10.100.38:5432/kb",
+        },
     },
 }

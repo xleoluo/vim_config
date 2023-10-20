@@ -23,6 +23,20 @@ function M.load()
         text = {
             spinner = "meter",
         },
+        fmt = {
+            -- function to format each task line
+            task = function(task_name, message, percentage)
+                if "Finding references" == task_name then
+                    return nil
+                end
+                return string.format(
+                    "%s%s [%s]",
+                    message,
+                    percentage and string.format(" (%s%%)", percentage) or "",
+                    task_name
+                )
+            end,
+        },
     })
 end
 

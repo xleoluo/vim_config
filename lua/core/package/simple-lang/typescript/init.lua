@@ -28,6 +28,7 @@ M.lazys = {
 
 M.mason = {
     "prettier",
+    "js-debug-adapter",
 }
 
 M.treesitter = {
@@ -48,8 +49,8 @@ M.null_ls = {
     formatting = {
         exe = "prettier",
         extra_args = {},
-        enable = true
-    }
+        enable = true,
+    },
 }
 
 return M

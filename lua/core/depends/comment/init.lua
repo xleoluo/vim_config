@@ -12,6 +12,7 @@ M.lazy = {
 
 function M.init()
     M.comment = require("Comment")
+    M.comment_ft = require("Comment.ft")
     M.ts_context_commentstring_integrations_comment_nvim =
         require("ts_context_commentstring.integrations.comment_nvim")
 end
@@ -35,6 +36,8 @@ function M.load()
     })
 end
 
-function M.after() end
+function M.after()
+    M.comment_ft({ "less", "sass" }, M.comment_ft.get("css"))
+end
 
 return M

@@ -47,6 +47,10 @@ M.lspconfig = {
     config = {},
 }
 
+M.dapconfig = {
+    config = {},
+}
+
 M.null_ls = {
     formatting = {
         exe = "prettier",

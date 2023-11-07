@@ -14,6 +14,7 @@ local root_files = {
     "manage.py",
     "server.py",
     "main.py",
+    "run.py",
 }
 
 local ignore_diagnostic_message = {

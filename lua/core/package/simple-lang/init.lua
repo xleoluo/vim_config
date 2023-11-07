@@ -48,13 +48,20 @@ function M.get_lazy_install()
     return M.get_lang_install("lazys")
 end
 
-function M.get_mason_install()
-    return M.get_lang_install("mason")
+function M.get_mason_install(extra_install)
+    return vim.tbl_extend(
+        "force",
+        M.get_lang_install("mason"),
+        extra_install or {}
+    )
 end
 
-function M.get_treesitter_install()
-    return M.get_lang_install("treesitter")
+function M.get_treesitter_install(extra_install)
+    return vim.tbl_extend(
+        "force",
+        M.get_lang_install("treesitter"),
+        extra_install or {}
+    )
 end
 
 return M
-

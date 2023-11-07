@@ -11,6 +11,10 @@ function M.is_auto_save()
     return api.get_config()["auto_save"]
 end
 
+function M.is_code_spell()
+    return api.get_config()["code_spell"]
+end
+
 function M.is_input_switch()
     return api.get_config()["input_switch"]
 end
@@ -67,6 +71,10 @@ end
 
 function M.get_depends_install_path()
     return api.path.join(vim.fn.stdpath("data"), "depends")
+end
+
+function M.get_cspell_conf_path()
+    return api.path.join(vim.fn.stdpath("config"), "spell", "cspell.json")
 end
 
 return M

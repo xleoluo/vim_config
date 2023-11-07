@@ -11,13 +11,6 @@ api.map.bulk_register({
         description = "Escape Neovim",
     },
     {
-        mode = { "n" },
-        lhs = "<leader>cs",
-        rhs = "<cmd>set spell!<cr>",
-        options = { silent = true },
-        description = "Enable or disable spell checking",
-    },
-    {
         mode = { "i" },
         lhs = "jj",
         rhs = "<esc>",

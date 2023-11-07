@@ -47,8 +47,21 @@ function M.filter_publish_diagnostics(
         params,
         client_info,
         extra_message,
+        ---@diagnostic disable-next-line: redundant-parameter
         config
     )
+end
+
+function M.get_diagnostic_namespace_by_name(name)
+    local namespace = 0
+    for _, diagnostic in ipairs(vim.diagnostic.get(0)) do
+        if diagnostic.source == name then
+            ---@diagnostic disable-next-line: undefined-field
+            namespace = diagnostic.namespace
+            break
+        end
+    end
+    return namespace
 end
 
 return M

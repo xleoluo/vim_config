@@ -18,7 +18,7 @@ function M.init()
 end
 
 function M.load()
-    vim.g.db_ui_winwidth = 60
+    vim.g.db_ui_winwidth = 40
     vim.g.db_ui_win_position = "right"
 
     vim.g.db_ui_auto_execute_table_helpers = true

@@ -23,7 +23,7 @@ function M.get_client_headlers(configuration)
     -------------------------------------------
     local function lsp_message_handle(config)
         local contents = config.contents
-        local extra_line = config.extra_line
+        -- local extra_line = config.extra_line
 
         local after_handle_contents = ""
 
@@ -41,9 +41,9 @@ function M.get_client_headlers(configuration)
                 after_handle_contents:gsub(before_char, after_char)
         end
 
-        if not extra_line then
-            return after_handle_contents
-        end
+        -- if not extra_line then
+        --     return after_handle_contents
+        -- end
 
         return ("---\n%s\n---"):format(after_handle_contents)
     end

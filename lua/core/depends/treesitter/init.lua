@@ -18,16 +18,6 @@ M.lazy = {
 function M.init()
     M.nvim_treesitter_configs = require("nvim-treesitter.configs")
     M.nvim_treesitter_install = require("nvim-treesitter.install")
-
-    --------------
-    M.ensure_installed = vim.list_extend({
-        "xml",
-        "dockerfile",
-        "git_config",
-        "git_rebase",
-        "gitcommit",
-        "gitignore",
-    }, api.get_lang().get_treesitter_install())
 end
 
 function M.load()
@@ -35,7 +25,14 @@ function M.load()
 
     M.nvim_treesitter_install.prefer_git = true
     M.nvim_treesitter_configs.setup({
-        ensure_installed = M.ensure_installed,
+        ensure_installed = api.get_lang().get_treesitter_install({
+            "xml",
+            "dockerfile",
+            "git_config",
+            "git_rebase",
+            "gitcommit",
+            "gitignore",
+        }),
         ignore_install = {},
         highlight = {
             enable = enable_highlight,

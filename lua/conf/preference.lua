@@ -19,7 +19,7 @@ vim.opt.scrolloff = 21
 vim.opt.smoothscroll = true
 vim.opt.mouse = "a"
 vim.opt.list = true
-vim.opt.spell = true
+vim.opt.spell = false
 vim.opt.spelllang = "en_us,cjk"
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -39,9 +39,18 @@ vim.opt.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,globals"
 
 vim.opt.undofile = true
 
--- vim.opt.listchars:append("space:⋅")
--- vim.opt.listchars:append("eol:↴")
--- vim.opt.listchars:append("tab:↹ ")
+vim.opt.listchars = {
+    -- tab = "⇥ ",
+    tab = "  ",
+    -- leadmultispace = "┊ ",
+    leadmultispace = "  ",
+    trail = "␣",
+    nbsp = "⍽",
+    -- eol = "↴",
+    eol = " ",
+    -- space = "⋅",
+    space = " ",
+}
 
 vim.opt.diffopt:append("vertical")
 vim.opt.shortmess:append("sI")

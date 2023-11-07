@@ -49,7 +49,9 @@ function M.after()
         M.mason_registry.update()
     end
 
-    for _, mason_pack_name in ipairs(api.get_lang().get_mason_install()) do
+    for _, mason_pack_name in
+        ipairs(api.get_lang().get_mason_install({ "cspell" }))
+    do
         if not M.mason_registry.is_installed(mason_pack_name) then
             if
                 not vim.tbl_contains(

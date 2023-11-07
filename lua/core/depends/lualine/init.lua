@@ -1,4 +1,5 @@
 -- https://github.com/nvim-lualine/lualine.nvim
+local api = require("utils.api")
 
 local M = {}
 
@@ -16,6 +17,16 @@ function M.init()
 end
 
 function M.load()
+    local sections = M.visual_studio_code.get_lualine_sections()
+    table.insert(sections.lualine_z, 2, {
+        "spell",
+        fmt = function(content, context)
+            return ("Spell: %s"):format(
+                api.get_setting().is_code_spell() and "on " or "off"
+            )
+        end,
+    })
+
     M.lualine.setup({
         options = {
             theme = "visual_studio_code",
@@ -30,7 +41,7 @@ function M.load()
                 winbar = 100,
             },
         },
-        sections = M.visual_studio_code.get_lualine_sections(),
+        sections = sections,
     })
 end
 

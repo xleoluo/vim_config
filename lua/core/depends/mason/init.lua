@@ -44,7 +44,7 @@ function M.after()
 
     if not api.path.exists(ref_lock_file) then
         M.mason_registry.refresh()
-        api.fn.create_file(ref_lock_file)
+        api.file.create(ref_lock_file)
     else
         M.mason_registry.update()
     end

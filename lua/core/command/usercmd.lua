@@ -29,6 +29,10 @@ vim.api.nvim_create_user_command("OpenUserConfigFile", function(ctx)
     vim.cmd((":e %s"):format(user_config_file_path))
 end, { desc = "Open user config file" })
 
+vim.api.nvim_create_user_command("OpenUserSpellFile", function(ctx)
+    vim.cmd((":e %s"):format(api.get_setting().get_cspell_conf_path()))
+end, { desc = "Open user config file" })
+
 vim.api.nvim_create_user_command("OpenUserSnippetFile", function(ctx)
     local snippet_file_name = vim.bo.filetype .. ".json"
     local snippet_file_path =

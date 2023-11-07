@@ -16,5 +16,6 @@ M.fn = require("utils.api.fn")
 M.lsp = require("utils.api.lsp")
 M.map = require("utils.api.map")
 M.path = require("utils.api.path")
+M.file = require("utils.api.file")
 
 return M

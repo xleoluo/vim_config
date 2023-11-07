@@ -17,8 +17,9 @@ M.lazy = {
 function M.init()
     M.null_ls = require("null-ls")
     M.cspell = require("cspell")
+    M.cspell_helpers = require("cspell.helpers")
     ---
-    aux.init(M.null_ls, M.cspell)
+    aux.init(M.null_ls, M.cspell, M.cspell_helpers)
 end
 
 function M.load()
@@ -60,55 +61,7 @@ end
 function M.after() end
 
 function M.register_maps()
-    api.map.bulk_register({
-        {
-            mode = { "n" },
-            lhs = "<leader>cs",
-            rhs = function()
-                local null_query = { name = "cspell" }
-                local code_spell = not api.get_setting().is_code_spell()
-                if code_spell then
-                    M.null_ls.enable(null_query)
-                else
-                    M.null_ls.disable(null_query)
-                end
-                api.get_config()["code_spell"] = code_spell
-            end,
-            options = { silent = true },
-            description = "Enable or disable spell checking",
-        },
-        {
-
-            mode = { "n" },
-            lhs = "[s",
-            rhs = function()
-                vim.diagnostic.goto_prev({
-                    namespace = api.lsp.get_diagnostic_namespace_by_name(
-                        "cspell"
-                    ),
-                    float = false,
-                })
-            end,
-            options = { silent = true },
-            description = "Go to prev cspell word",
-        },
-        {
-
-            mode = { "n" },
-            lhs = "]s",
-            rhs = function()
-                vim.diagnostic.goto_next({
-                    namespace = api.lsp.get_diagnostic_namespace_by_name(
-                        "cspell"
-                    ),
-                    float = false,
-                })
-            end,
-
-            options = { silent = true },
-            description = "Go to next cspell word",
-        },
-    })
+    aux.register_maps()
 end
 
 return M

@@ -1,5 +1,6 @@
 return {
     auto_save = true,
+    code_spell = true,
     float_border = true,
     input_switch = true,
     transparent_background = false,

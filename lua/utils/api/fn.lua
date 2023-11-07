@@ -55,17 +55,15 @@ function M.get_package_from_directory(dir_path, ignore_package_array)
     return package_mapping
 end
 
-function M.create_file(p)
-    local file = io.open(p, "r")
-    if file then
-        file:close()
-    else
-        local n_file = io.open(p, "w")
-        ---@diagnostic disable-next-line: need-check-nil
-        n_file:close()
+function M.tbl_find_index(tbl, element)
+    local index = 0
+    for i, v in ipairs(tbl) do
+        if v == element then
+            index = i
+            break
+        end
     end
+    return index
 end
-
-
 
 return M

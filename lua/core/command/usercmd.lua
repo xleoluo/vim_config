@@ -1,5 +1,7 @@
 local api = require("utils.api")
 
+local timer = nil
+
 vim.api.nvim_create_user_command("BufferDelete", function(ctx)
     ---@diagnostic disable-next-line: missing-parameter
     local file_exists = vim.fn.filereadable(vim.fn.expand("%p"))
@@ -39,3 +41,19 @@ vim.api.nvim_create_user_command("OpenUserSnippetFile", function(ctx)
         api.path.join(vim.fn.stdpath("config"), "snippets", snippet_file_name)
     vim.cmd((":e %s"):format(snippet_file_path))
 end, { desc = "Open user snippet file from current filetype" })
+
+vim.api.nvim_create_user_command("AutoReload", function(ctx)
+    if not timer then
+        local interval = 1000
+        timer = api.fn.setInterval(
+            interval,
+            vim.schedule_wrap(function()
+                vim.cmd([[checktime]])
+                vim.cmd([[normal G]])
+            end)
+        )
+    else
+        api.fn.clearInterval(timer)
+        timer = nil
+    end
+end, { desc = "Start Automatically flush the buffer" })

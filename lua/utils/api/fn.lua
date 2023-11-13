@@ -16,6 +16,7 @@ function M.get_all_window_buffer_filetype()
     end, vim.api.nvim_list_wins())
 end
 
+-- Get all can require module from directory
 function M.get_package_from_directory(dir_path, ignore_package_array)
     ignore_package_array = ignore_package_array or {}
 
@@ -55,6 +56,7 @@ function M.get_package_from_directory(dir_path, ignore_package_array)
     return package_mapping
 end
 
+-- Find element index from table
 function M.tbl_find_index(tbl, element)
     local index = 0
     for i, v in ipairs(tbl) do
@@ -64,6 +66,32 @@ function M.tbl_find_index(tbl, element)
         end
     end
     return index
+end
+
+-- Creating a simple setTimeout wrapper
+function M.setTimeout(timeout, callback)
+    local timer = vim.loop.new_timer()
+    timer:start(timeout, 0, function()
+        timer:stop()
+        timer:close()
+        callback()
+    end)
+    return timer
+end
+
+-- Creating a simple setInterval wrapper
+function M.setInterval(interval, callback)
+    local timer = vim.loop.new_timer()
+    timer:start(interval, interval, function()
+        callback()
+    end)
+    return timer
+end
+
+-- And clearInterval
+function M.clearInterval(timer)
+    timer:stop()
+    timer:close()
 end
 
 return M

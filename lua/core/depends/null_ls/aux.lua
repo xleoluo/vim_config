@@ -83,10 +83,13 @@ function M.register_maps()
                     api.file.write(file_name, vim.json.encode(content))
 
                     local pos = vim.api.nvim_win_get_cursor(0)
-                    M.cspell_helpers.set_word({
+                    local col, end_col =
+                        ---@diagnostic disable-next-line: param-type-mismatch
+                        vim.api.nvim_get_current_line():find(word)
+                    pcall(M.cspell_helpers.set_word, {
                         bufnr = 0,
-                        col = pos[2],
-                        end_col = pos[2] + #word,
+                        col = col - 1,
+                        end_col = end_col,
                         end_lnum = pos[1] - 1,
                         lnum = pos[1] - 1,
                     }, word)
@@ -117,12 +120,14 @@ function M.register_maps()
                         api.fn.tbl_find_index(content.words, word)
                     )
                     api.file.write(file_name, vim.json.encode(content))
-
                     local pos = vim.api.nvim_win_get_cursor(0)
-                    M.cspell_helpers.set_word({
+                    local col, end_col =
+                        ---@diagnostic disable-next-line: param-type-mismatch
+                        vim.api.nvim_get_current_line():find(word)
+                    pcall(M.cspell_helpers.set_word, {
                         bufnr = 0,
-                        col = pos[2],
-                        end_col = pos[2] + #word,
+                        col = col - 1,
+                        end_col = end_col,
                         end_lnum = pos[1] - 1,
                         lnum = pos[1] - 1,
                     }, word)

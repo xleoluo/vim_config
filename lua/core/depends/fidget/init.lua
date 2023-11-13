@@ -15,15 +15,6 @@ function M.init()
     M.fidget = require("fidget")
 end
 
-function M.get_disable_task_name()
-    return {
-        "code_action",
-        "Finding references",
-        "Processing reference...",
-        "Searching in files...",
-    }
-end
-
 function M.load()
     M.fidget.setup({
         window = {
@@ -33,11 +24,9 @@ function M.load()
             spinner = "meter",
         },
         fmt = {
+            max_messages = 2,
             -- function to format each task line
             task = function(task_name, message, percentage)
-                if vim.tbl_contains(M.get_disable_task_name(), task_name) then
-                    return nil
-                end
                 return string.format(
                     "%s%s [%s]",
                     message,

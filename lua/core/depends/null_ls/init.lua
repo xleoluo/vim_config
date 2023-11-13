@@ -10,16 +10,13 @@ M.lazy = {
     dependencies = {
         { "nvim-lua/plenary.nvim" },
         { "neovim/nvim-lspconfig" },
-        { "davidmh/cspell.nvim" },
     },
 }
 
 function M.init()
     M.null_ls = require("null-ls")
-    M.cspell = require("cspell")
-    M.cspell_helpers = require("cspell.helpers")
     ---
-    aux.init(M.null_ls, M.cspell, M.cspell_helpers)
+    aux.init(M.null_ls)
 end
 
 function M.load()

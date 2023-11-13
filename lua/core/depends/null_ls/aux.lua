@@ -2,10 +2,8 @@ local api = require("utils.api")
 
 local M = {}
 
-function M.init(null_ls, cspell, cspell_helpers)
+function M.init(null_ls)
     M.null_ls = null_ls
-    M.cspell = cspell
-    M.cspell_helpers = cspell_helpers
 end
 
 -- cspell
@@ -15,11 +13,26 @@ end
 
 local function get_cspell_conf()
     return {
-        ---@diagnostic disable-next-line: unused-local
-        find_json = function(default_path)
-            return api.get_setting().get_cspell_conf_path()
-        end,
+        "--config",
+        api.get_setting().get_cspell_conf_path(),
     }
+end
+
+local function safe_reset_virtual_text(text, position)
+    local pos = vim.api.nvim_win_get_cursor(0)
+    local col, end_col =
+        ---@diagnostic disable-next-line: param-type-mismatch
+        vim.api.nvim_get_current_line():find(text)
+    pcall(
+        vim.api.nvim_buf_set_text,
+        0, -- bufnr
+        pos[1] - 1, -- start_row
+        col - 1, -- start_col
+        pos[1] - 1, -- end_row
+        end_col, -- end_col
+        ---@diagnostic disable-next-line: assign-type-mismatch
+        { text }
+    )
 end
 --
 
@@ -81,18 +94,8 @@ function M.register_maps()
                 if not vim.tbl_contains(content.words, word) then
                     table.insert(content.words, word)
                     api.file.write(file_name, vim.json.encode(content))
-
-                    local pos = vim.api.nvim_win_get_cursor(0)
-                    local col, end_col =
-                        ---@diagnostic disable-next-line: param-type-mismatch
-                        vim.api.nvim_get_current_line():find(word)
-                    pcall(M.cspell_helpers.set_word, {
-                        bufnr = 0,
-                        col = col - 1,
-                        end_col = end_col,
-                        end_lnum = pos[1] - 1,
-                        lnum = pos[1] - 1,
-                    }, word)
+                    -- reset virtual text
+                    safe_reset_virtual_text(word)
                 else
                     vim.api.nvim_echo({
                         {
@@ -120,17 +123,8 @@ function M.register_maps()
                         api.fn.tbl_find_index(content.words, word)
                     )
                     api.file.write(file_name, vim.json.encode(content))
-                    local pos = vim.api.nvim_win_get_cursor(0)
-                    local col, end_col =
-                        ---@diagnostic disable-next-line: param-type-mismatch
-                        vim.api.nvim_get_current_line():find(word)
-                    pcall(M.cspell_helpers.set_word, {
-                        bufnr = 0,
-                        col = col - 1,
-                        end_col = end_col,
-                        end_lnum = pos[1] - 1,
-                        lnum = pos[1] - 1,
-                    }, word)
+                    -- reset virtual text
+                    safe_reset_virtual_text(word)
                 else
                     vim.api.nvim_echo({
                         {
@@ -149,18 +143,12 @@ function M.register_maps()
 end
 
 function M.get_sources()
-    local cspell_conf = get_cspell_conf()
     return {
-        M.cspell.code_actions.with({
-            config = cspell_conf,
-            disabled_filetypes = get_cspell_disabled_filetypes(),
-            runtime_condition = api.get_setting().is_code_spell,
-        }),
-        M.cspell.diagnostics.with({
+        M.null_ls.builtins.diagnostics.cspell.with({
             diagnostics_postprocess = function(diagnostic)
                 diagnostic.severity = vim.diagnostic.severity["HINT"]
             end,
-            config = cspell_conf,
+            extra_args = get_cspell_conf(),
             disabled_filetypes = get_cspell_disabled_filetypes(),
             runtime_condition = api.get_setting().is_code_spell,
         }),

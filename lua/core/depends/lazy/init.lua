@@ -46,9 +46,9 @@ function M.before()
         vim.fn.mkdir(install_path, "p")
 
         vim.notify(
-            "[SimpleNvim] clone lazy.nvim ...",
+            "Clone lazy.nvim ...",
             "INFO",
-            { title = "SimpleNvim" }
+            { annote = "[SimpleNvim]", key = "[SimpleNvim]" }
         )
 
         vim.fn.system({

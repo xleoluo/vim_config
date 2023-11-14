@@ -8,6 +8,7 @@ M.lazy = {
     "williamboman/mason.nvim",
     dependencies = {
         { "williamboman/mason-lspconfig.nvim" },
+        { "j-hui/fidget.nvim" },
     },
     event = { "VimEnter" },
 }
@@ -60,20 +61,18 @@ function M.after()
                 )
             then
                 vim.notify(
-                    ("[mason.nvim] invalid package name <%s>"):format(
-                        mason_pack_name
-                    ),
+                    ("Invalid package name <%s>"):format(mason_pack_name),
                     ---@diagnostic disable-next-line: param-type-mismatch
                     "ERROR",
-                    { title = "mason.nvim" }
+                    { annote = "[mason.nvim]", key = "[mason.nvim]" }
                 )
             else
                 M.mason_registry.get_package(mason_pack_name):install()
                 vim.notify(
-                    ("[mason.nvim] installing <%s>"):format(mason_pack_name),
+                    ("Installing <%s>"):format(mason_pack_name),
                     ---@diagnostic disable-next-line: param-type-mismatch
                     "INFO",
-                    { title = "mason.nvim" }
+                    { annote = "[mason.nvim]", key = "[mason.nvim]" }
                 )
             end
         end

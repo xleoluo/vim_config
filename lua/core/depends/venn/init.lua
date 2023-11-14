@@ -23,18 +23,18 @@ function M.load()
             vim.wo.virtualedit = "all"
             aux.register_buf_maps(0)
             vim.notify(
-                "[venn.nvim] mode is enable",
+                "Mode is enabled",
                 "INFO",
-                { title = "venn.nvim" }
+                { annote = "[venn.nvim]", key = "[venn.nvim]" }
             )
         else
             vim.b.venn_enabled = false
             vim.wo.virtualedit = ""
             vim.cmd([[mapclear <buffer>]])
             vim.notify(
-                "[venn.nvim] mode is disable",
+                "Mode is disable",
                 "INFO",
-                { title = "venn.nvim" }
+                { annote = "[venn.nvim]", key = "[venn.nvim]" }
             )
         end
     end

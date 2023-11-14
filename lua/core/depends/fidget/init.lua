@@ -4,9 +4,6 @@ local M = {}
 
 M.lazy = {
     "j-hui/fidget.nvim",
-    dependencies = {
-        { "neovim/nvim-lspconfig" },
-    },
     priority = 80,
 }
 

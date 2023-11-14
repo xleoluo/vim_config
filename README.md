@@ -14,6 +14,8 @@ Welcome to SimpleNvim! This is a pre-configured setup tailored for Neovim, desig
 
 ## Getting Started
 
+> SimpleNvim is built on top of the latest preview version of Neovim, and you can use [bob](https://github.com/MordechaiHadad/bob) to install the preview version of Noevim
+
 Follow these steps to start using SimpleNvim:
 
 1. Install Neovim: If you haven't already, install Neovim according to your operating system.

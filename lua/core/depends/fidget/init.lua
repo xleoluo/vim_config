@@ -4,11 +4,10 @@ local M = {}
 
 M.lazy = {
     "j-hui/fidget.nvim",
-    tag = "legacy",
     dependencies = {
         { "neovim/nvim-lspconfig" },
     },
-    event = { "LspAttach" },
+    priority = 80,
 }
 
 function M.init()
@@ -17,23 +16,27 @@ end
 
 function M.load()
     M.fidget.setup({
-        window = {
-            blend = 0,
+        progress = {
+            display = {
+                render_limit = 2,
+                done_style = "SpecialKey",
+                progress_style = "SpecialKey",
+                group_style = "Title",
+                icon_style = "Title",
+            },
         },
-        text = {
-            spinner = "meter",
-        },
-        fmt = {
-            max_messages = 2,
-            -- function to format each task line
-            task = function(task_name, message, percentage)
-                return string.format(
-                    "%s%s [%s]",
-                    message,
-                    percentage and string.format(" (%s%%)", percentage) or "",
-                    task_name
-                )
-            end,
+        notification = {
+            override_vim_notify = true,
+            window = {
+                normal_hl = "SpecialKey",
+                winblend = 0,
+            },
+            view = {
+                stack_upwards = true,
+                icon_separator = " ",
+                group_separator = "---",
+                group_separator_hl = "SpecialKey",
+            },
         },
     })
 end

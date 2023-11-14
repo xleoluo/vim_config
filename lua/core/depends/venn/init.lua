@@ -22,12 +22,20 @@ function M.load()
             vim.b.venn_enabled = true
             vim.wo.virtualedit = "all"
             aux.register_buf_maps(0)
-            vim.api.nvim_echo({ { "Venn mode enable", "WarningMsg" } }, false, {})
+            vim.notify(
+                "[venn.nvim] mode is enable",
+                "INFO",
+                { title = "venn.nvim" }
+            )
         else
             vim.b.venn_enabled = false
             vim.wo.virtualedit = ""
             vim.cmd([[mapclear <buffer>]])
-            vim.api.nvim_echo({ { "Venn mode disable", "WarningMsg" } }, false, {})
+            vim.notify(
+                "[venn.nvim] mode is disable",
+                "INFO",
+                { title = "venn.nvim" }
+            )
         end
     end
 end

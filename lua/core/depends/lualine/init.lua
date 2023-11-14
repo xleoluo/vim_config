@@ -18,11 +18,21 @@ end
 
 function M.load()
     local sections = M.visual_studio_code.get_lualine_sections()
-    table.insert(sections.lualine_z, 2, {
+
+    table.insert(sections.lualine_x, 2, {
+        "venn",
+        fmt = function(content, context)
+            return ("Venn: %s"):format(
+                vim.b.venn_enabled and "Y" or "N"
+            )
+        end,
+    })
+
+    table.insert(sections.lualine_x, 2, {
         "spell",
         fmt = function(content, context)
             return ("Spell: %s"):format(
-                api.get_setting().is_code_spell() and "on " or "off"
+                api.get_setting().is_code_spell() and "Y" or "N"
             )
         end,
     })

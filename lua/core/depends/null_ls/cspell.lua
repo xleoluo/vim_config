@@ -24,17 +24,19 @@ function M.init(null_ls)
 end
 
 function M.get_source()
-    M.null_ls.builtins.diagnostics.cspell.with({
-        diagnostics_postprocess = function(diagnostic)
-            diagnostic.severity = vim.diagnostic.severity["HINT"]
-        end,
-        extra_args = {
-            "--config",
-            api.get_setting().get_cspell_conf_path(),
-        },
-        disabled_filetypes = { "NvimTree" },
-        runtime_condition = api.get_setting().is_code_spell,
-    })
+    return {
+        M.null_ls.builtins.diagnostics.cspell.with({
+            diagnostics_postprocess = function(diagnostic)
+                diagnostic.severity = vim.diagnostic.severity["HINT"]
+            end,
+            extra_args = {
+                "--config",
+                api.get_setting().get_cspell_conf_path(),
+            },
+            disabled_filetypes = { "NvimTree" },
+            runtime_condition = api.get_setting().is_code_spell,
+        }),
+    }
 end
 
 function M.register_maps()

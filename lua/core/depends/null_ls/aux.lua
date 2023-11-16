@@ -11,7 +11,7 @@ end
 
 function M.get_sources()
     return {
-        cspell.get_source(),
+        unpack(cspell.get_source()),
     }
 end
 

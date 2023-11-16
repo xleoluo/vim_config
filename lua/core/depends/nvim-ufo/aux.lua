@@ -8,7 +8,7 @@ function M.fold_virtual_text_handler(
     truncate
 )
     local new_virtual_text = {}
-    local suffix = ("   %d"):format(end_lnum - lnum)
+    local suffix = ("   %d"):format(end_lnum - lnum)
     local suffix_width = vim.fn.strdisplaywidth(suffix)
     local target_width = width - suffix_width
     local current_width = 0
@@ -31,7 +31,7 @@ function M.fold_virtual_text_handler(
         end
         current_width = current_width + chunk_width
     end
-    table.insert(new_virtual_text, { suffix, "MoreMsg" })
+    table.insert(new_virtual_text, { suffix, "LineNr" })
     return new_virtual_text
 end
 

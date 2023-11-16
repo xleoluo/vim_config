@@ -18,7 +18,7 @@ function M.load()
         priority = 15,
         sign = {
             enabled = true,
-            text = "💡",
+            text = "",
             hl = "DiagnosticSignWarn",
         },
     })

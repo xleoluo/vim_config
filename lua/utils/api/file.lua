@@ -32,7 +32,6 @@ function M.create(p)
         file:close()
     else
         local n_file = io.open(p, "w")
-        ---@diagnostic disable-next-line: need-check-nil
         n_file:close()
     end
 end

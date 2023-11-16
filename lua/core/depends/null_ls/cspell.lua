@@ -33,7 +33,7 @@ function M.get_source()
                 "--config",
                 api.get_setting().get_cspell_conf_path(),
             },
-            disabled_filetypes = { "NvimTree" },
+            disabled_filetypes = api.fn.get_ignore_filetypes(),
             runtime_condition = api.get_setting().is_code_spell,
         }),
     }

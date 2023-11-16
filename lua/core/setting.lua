@@ -60,6 +60,7 @@ function M.get_icon_groups(groups_name, has_suffix_space)
     return icon
 end
 
+
 -----------------------------------------------------------------------------------
 function M.get_depend_base_path()
     return api.path.join("core", "depends")

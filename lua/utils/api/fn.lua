@@ -2,6 +2,46 @@
 
 local M = {}
 
+----------------------------------------- build-in fn extends ------------------------------------------
+-- Creating a simple setTimeout wrapper
+function M.setTimeout(timeout, callback)
+    local timer = vim.loop.new_timer()
+    timer:start(timeout, 0, function()
+        timer:stop()
+        timer:close()
+        callback()
+    end)
+    return timer
+end
+
+-- Creating a simple setInterval wrapper
+function M.setInterval(interval, callback)
+    local timer = vim.loop.new_timer()
+    timer:start(interval, interval, function()
+        callback()
+    end)
+    return timer
+end
+
+-- And clearInterval
+function M.clearInterval(timer)
+    timer:stop()
+    timer:close()
+end
+
+-- Find element index from table
+function M.tbl_find_index(tbl, element)
+    local index = 0
+    for i, v in ipairs(tbl) do
+        if v == element then
+            index = i
+            break
+        end
+    end
+    return index
+end
+
+-- Get all window-buffer-filetype, return table
 function M.get_all_window_buffer_filetype()
     return vim.tbl_map(function(win_id)
         if vim.api.nvim_win_is_valid(win_id) then
@@ -15,7 +55,25 @@ function M.get_all_window_buffer_filetype()
         end
     end, vim.api.nvim_list_wins())
 end
-
+----------------------------------------- depends plugin auxiliary fn ------------------------------------------
+-- Get all plugin ignore filetypes
+function M.get_ignore_filetypes(filetypes)
+    return vim.tbl_extend("force", {
+        "qf",
+        "help",
+        "lazy",
+        "dbui",
+        "mason",
+        "aerial",
+        "notify",
+        "lspinfo",
+        "NvimTree",
+        "toggleterm",
+        "spectre_panel",
+        "TelescopePrompt",
+    }, filetypes or {})
+end
+-----------------------------------------------------------------------------------
 -- Get all can require module from directory
 function M.get_package_from_directory(dir_path, ignore_package_array)
     ignore_package_array = ignore_package_array or {}
@@ -54,44 +112,6 @@ function M.get_package_from_directory(dir_path, ignore_package_array)
     end
 
     return package_mapping
-end
-
--- Find element index from table
-function M.tbl_find_index(tbl, element)
-    local index = 0
-    for i, v in ipairs(tbl) do
-        if v == element then
-            index = i
-            break
-        end
-    end
-    return index
-end
-
--- Creating a simple setTimeout wrapper
-function M.setTimeout(timeout, callback)
-    local timer = vim.loop.new_timer()
-    timer:start(timeout, 0, function()
-        timer:stop()
-        timer:close()
-        callback()
-    end)
-    return timer
-end
-
--- Creating a simple setInterval wrapper
-function M.setInterval(interval, callback)
-    local timer = vim.loop.new_timer()
-    timer:start(interval, interval, function()
-        callback()
-    end)
-    return timer
-end
-
--- And clearInterval
-function M.clearInterval(timer)
-    timer:stop()
-    timer:close()
 end
 
 return M

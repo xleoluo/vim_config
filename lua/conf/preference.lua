@@ -33,7 +33,6 @@ vim.opt.smartindent = true
 vim.opt.iskeyword = "@,48-57,_,192-255"
 vim.opt.laststatus = 3
 vim.opt.linebreak = true
--- vim.opt.fillchars = "eob: "
 vim.opt.fillchars = "eob: ,fold: ,foldopen: ,foldsep: ,foldclose:"
 vim.opt.fileencodings = "ucs-bom,utf-8,gbk,big5,gb18030,latin1"
 vim.opt.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,globals"

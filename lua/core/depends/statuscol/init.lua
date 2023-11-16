@@ -1,4 +1,5 @@
 -- https://github.com/luukvbaal/statuscol.nvim
+local api = require("utils.api")
 
 local M = {}
 
@@ -15,7 +16,7 @@ function M.load()
     local builtin = require("statuscol.builtin")
 
     M.statuscol.setup({
-        ft_ignore = { "NvimTree" },
+        ft_ignore = api.fn.get_ignore_filetypes(),
         bt_ignore = nil,
         segments = {
             {

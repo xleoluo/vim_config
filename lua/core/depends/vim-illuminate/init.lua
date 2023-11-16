@@ -1,4 +1,5 @@
 -- https://github.com/RRethy/vim-illuminate
+local api = require("utils.api")
 
 local M = {}
 
@@ -21,19 +22,7 @@ function M.load()
             "regex",
             "treesitter",
         },
-        filetypes_denylist = {
-            "qf",
-            "NvimTree",
-            "aerial",
-            "spectre_panel",
-            "help",
-            "lazy",
-            "mason",
-            "notify",
-            "lspinfo",
-            "toggleterm",
-            "TelescopePrompt",
-        },
+        filetypes_denylist = api.fn.get_ignore_filetypes(),
     })
 end
 

@@ -197,4 +197,116 @@ api.map.bulk_register({
     },
 })
 
+-- PopUp content
+
+vim.cmd.aunmenu("PopUp")
+
+api.map.bulk_register_menu("PopUp", {
+    {
+        mode = "a",
+        description = "Code Action",
+        command = "<cmd>lua vim.lsp.buf.code_action()<cr>",
+    },
+    {
+        mode = "a",
+        description = "Rename Symbol",
+        command = "<cmd>lua vim.lsp.buf.rename()<cr>",
+    },
+    {
+        mode = "a",
+        description = "-1-",
+        command = "<nop>",
+    },
+    {
+        mode = "a",
+        description = "Go to Definition",
+        command = '<cmd>lua require("telescope.builtin").lsp_definitions()<cr>',
+    },
+    {
+        mode = "a",
+        description = "Go to Implementation",
+        command = '<cmd>lua require("telescope.builtin").lsp_implementations()<cr>',
+    },
+    {
+        mode = "a",
+        description = "Go to Type Definition",
+        command = '<cmd>lua require("telescope.builtin").lsp_type_definitions()<cr>',
+    },
+    {
+        mode = "a",
+        description = "-2-",
+        command = "<nop>",
+    },
+    {
+        mode = "a",
+        description = "Find Workspace References",
+        command = '<cmd>lua require("telescope.builtin").lsp_references()<cr>',
+    },
+    {
+        mode = "a",
+        description = "Find Workspace Diagnostic",
+        command = '<cmd>lua require("telescope.builtin").diagnostics()<cr>',
+    },
+    {
+        mode = "a",
+        description = "-3-",
+        command = "<nop>",
+    },
+    {
+        mode = "v",
+        description = "Cut",
+        command = '"+x',
+    },
+    {
+        mode = "v",
+        description = "Copy",
+        command = '"+y',
+    },
+    {
+        mode = "a",
+        description = "Paste",
+        command = '"+gP',
+    },
+    {
+        mode = "v",
+        description = "Paste",
+        command = '"+P',
+    },
+    {
+        mode = "v",
+        description = "Delete",
+        command = '"_x',
+    },
+    {
+        mode = "n",
+        description = "Select All",
+        command = "ggVG",
+    },
+    {
+        mode = "v",
+        description = "Select All",
+        command = "gg0oG$",
+    },
+    {
+        mode = "i",
+        description = "Select All",
+        command = "<c-home><c-o>VG",
+    },
+    {
+        mode = "i",
+        description = "-4-",
+        command = "<nop>",
+    },
+    {
+        mode = "v",
+        description = "-4-",
+        command = "<nop>",
+    },
+    {
+        mode = "a",
+        description = "How-to disable mouse",
+        command = "<cmd>help disable-mouse<cr>",
+    },
+})
+
 return M

@@ -9,6 +9,7 @@ M.mason = {
 M.treesitter = {
     "json",
     "jsonc",
+    "json5"
 }
 
 M.lspconfig = {

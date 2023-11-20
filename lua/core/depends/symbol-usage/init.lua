@@ -20,6 +20,7 @@ function M.load()
         hl = { link = "DiagnosticUnnecessary" },
         -- 'above'|'end_of_line'|'textwidth'
         vt_position = "end_of_line",
+        disable = { filetypes = { "vue" } },
     })
 end
 

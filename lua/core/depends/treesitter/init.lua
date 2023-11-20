@@ -10,7 +10,6 @@ M.lazy = {
     dependencies = {
         { "nvim-lua/plenary.nvim" },
         { "windwp/nvim-ts-autotag" },
-        { "JoosepAlviste/nvim-ts-context-commentstring" },
     },
     event = { "UIEnter" },
 }
@@ -54,11 +53,6 @@ function M.load()
         -- nvim-ts-autotag
         autotag = {
             enable = true,
-        },
-        -- nvim-ts-context-commentstring
-        context_commentstring = {
-            enable = true,
-            enable_autocmd = false,
         },
     })
 end

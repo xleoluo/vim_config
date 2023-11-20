@@ -5,7 +5,7 @@ local M = {}
 
 M.lazy = {
     "luukvbaal/statuscol.nvim",
-    event = { "VeryLazy" },
+    event = { "UIEnter" },
 }
 
 function M.init()

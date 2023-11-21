@@ -45,7 +45,7 @@ function M.toggle_sigature_help()
     vim.lsp.buf.signature_help()
 end
 
-function M.scroll_docs_to_up(map)
+function M.scroll_docs_to_up(map, scroll)
     local cache_scrolloff = vim.opt.scrolloff:get()
 
     return function()
@@ -74,20 +74,20 @@ function M.scroll_docs_to_up(map)
                 vim.opt.scrolloff = 0
 
                 if cursor_line > win_first_line then
-                    if win_first_line - 5 > 1 then
+                    if win_first_line - scroll > 1 then
                         vim.api.nvim_win_set_cursor(
                             object.winner,
-                            { win_first_line - 5, 0 }
+                            { win_first_line - scroll, 0 }
                         )
                     else
                         vim.api.nvim_win_set_cursor(object.winner, { 1, 0 })
                     end
-                elseif cursor_line - 5 < 1 then
+                elseif cursor_line - scroll < 1 then
                     vim.api.nvim_win_set_cursor(object.winner, { 1, 0 })
                 else
                     vim.api.nvim_win_set_cursor(
                         object.winner,
-                        { cursor_line - 5, 0 }
+                        { cursor_line - scroll, 0 }
                     )
                 end
                 vim.opt.scrolloff = cache_scrolloff
@@ -107,7 +107,7 @@ function M.scroll_docs_to_up(map)
     end
 end
 
-function M.scroll_docs_to_down(map)
+function M.scroll_docs_to_down(map, scroll)
     local cache_scrolloff = vim.opt.scrolloff:get()
 
     return function()
@@ -139,10 +139,10 @@ function M.scroll_docs_to_down(map)
                 vim.opt.scrolloff = 0
 
                 if cursor_line < window_last_line then
-                    if window_last_line + 5 < buffer_total_line then
+                    if window_last_line + scroll < buffer_total_line then
                         vim.api.nvim_win_set_cursor(
                             object.winner,
-                            { window_last_line + 5, 0 }
+                            { window_last_line + scroll, 0 }
                         )
                     else
                         vim.api.nvim_win_set_cursor(
@@ -150,7 +150,7 @@ function M.scroll_docs_to_down(map)
                             { buffer_total_line, 0 }
                         )
                     end
-                elseif cursor_line + 5 >= buffer_total_line then
+                elseif cursor_line + scroll >= buffer_total_line then
                     vim.api.nvim_win_set_cursor(
                         object.winner,
                         { buffer_total_line, 0 }
@@ -158,7 +158,7 @@ function M.scroll_docs_to_down(map)
                 else
                     vim.api.nvim_win_set_cursor(
                         object.winner,
-                        { cursor_line + 5, 0 }
+                        { cursor_line + scroll, 0 }
                     )
                 end
 

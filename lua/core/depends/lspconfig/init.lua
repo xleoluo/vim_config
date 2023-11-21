@@ -175,14 +175,14 @@ function M.register_maps()
         {
             mode = { "i", "n" },
             lhs = "<c-b>",
-            rhs = aux.maps.scroll_docs_to_up("<c-b>"),
+            rhs = aux.maps.scroll_docs_to_up("<c-b>", 1),
             options = { silent = true },
             description = "Scroll up floating window",
         },
         {
             mode = { "i", "n" },
             lhs = "<c-f>",
-            rhs = aux.maps.scroll_docs_to_down("<c-f>"),
+            rhs = aux.maps.scroll_docs_to_down("<c-f>", 1),
             options = { silent = true },
             description = "Scroll down floating window",
         },

@@ -32,13 +32,13 @@ end
 
 function M.toggle_inlay_hint()
     inlay_hint = not inlay_hint
-    vim.lsp.inlay_hint(0, inlay_hint)
+    vim.lsp.inlay_hint.enable(0, inlay_hint)
 end
 
 function M.toggle_sigature_help()
-    for _, opts in ipairs(api.fn.get_all_window_buffer_filetype()) do
-        if opts.buf_ft == lsp_hover_filetype.signature then
-            vim.api.nvim_win_close(opts.win_id, false)
+    for _, object in ipairs(api.fn.get_all_window_buffer_filetype()) do
+        if object.filetype == lsp_hover_filetype.signature then
+            vim.api.nvim_win_close(object.winner, false)
             return
         end
     end
@@ -49,29 +49,25 @@ function M.scroll_docs_to_up(map)
     local cache_scrolloff = vim.opt.scrolloff:get()
 
     return function()
-        for _, opts in ipairs(api.fn.get_all_window_buffer_filetype()) do
+        for _, object in ipairs(api.fn.get_all_window_buffer_filetype()) do
             if
                 vim.tbl_contains(
                     vim.tbl_values(lsp_hover_filetype),
-                    opts.buf_ft
+                    object.filetype
                 )
             then
-                local window_height = vim.api.nvim_win_get_height(opts.win_id)
-                local cursor_line = vim.api.nvim_win_get_cursor(opts.win_id)[1]
+                local cursor_line = vim.fn.line(".", object.winner)
                 local buffer_total_line =
-                    vim.api.nvim_buf_line_count(opts.buf_id)
-                ---@diagnostic disable-next-line: redundant-parameter
-                local win_first_line = vim.fn.line("w0", opts.win_id)
+                    vim.api.nvim_buf_line_count(object.bufnr)
+                local window_height = vim.api.nvim_win_get_height(object.winner)
+                local win_first_line = vim.fn.line("w0", object.winner)
 
-                if
-                    buffer_total_line + 1 <= window_height
-                    or cursor_line == 1
-                then
-                    vim.api.nvim_echo(
-                        { { "Can't scroll up", "WarningMsg" } },
-                        false,
-                        {}
-                    )
+                if window_height >= buffer_total_line or cursor_line == 1 then
+                    -- vim.api.nvim_echo(
+                    --     { { "Can't scroll up", "WarningMsg" } },
+                    --     false,
+                    --     {}
+                    -- )
                     return
                 end
 
@@ -80,23 +76,27 @@ function M.scroll_docs_to_up(map)
                 if cursor_line > win_first_line then
                     if win_first_line - 5 > 1 then
                         vim.api.nvim_win_set_cursor(
-                            opts.win_id,
+                            object.winner,
                             { win_first_line - 5, 0 }
                         )
                     else
-                        vim.api.nvim_win_set_cursor(opts.win_id, { 1, 0 })
+                        vim.api.nvim_win_set_cursor(object.winner, { 1, 0 })
                     end
                 elseif cursor_line - 5 < 1 then
-                    vim.api.nvim_win_set_cursor(opts.win_id, { 1, 0 })
+                    vim.api.nvim_win_set_cursor(object.winner, { 1, 0 })
                 else
                     vim.api.nvim_win_set_cursor(
-                        opts.win_id,
+                        object.winner,
                         { cursor_line - 5, 0 }
                     )
                 end
-
                 vim.opt.scrolloff = cache_scrolloff
 
+                api.fn.generate_win_percentage_footer(
+                    "up",
+                    object.winner,
+                    object.bufnr
+                )
                 return
             end
         end
@@ -111,29 +111,28 @@ function M.scroll_docs_to_down(map)
     local cache_scrolloff = vim.opt.scrolloff:get()
 
     return function()
-        for _, opts in ipairs(api.fn.get_all_window_buffer_filetype()) do
+        for _, object in ipairs(api.fn.get_all_window_buffer_filetype()) do
             if
                 vim.tbl_contains(
                     vim.tbl_values(lsp_hover_filetype),
-                    opts.buf_ft
+                    object.filetype
                 )
             then
-                local window_height = vim.api.nvim_win_get_height(opts.win_id)
-                local cursor_line = vim.api.nvim_win_get_cursor(opts.win_id)[1]
+                local cursor_line = vim.fn.line(".", object.winner)
                 local buffer_total_line =
-                    vim.api.nvim_buf_line_count(opts.buf_id)
-                ---@diagnostic disable-next-line: redundant-parameter
-                local window_last_line = vim.fn.line("w$", opts.win_id)
+                    vim.api.nvim_buf_line_count(object.bufnr)
+                local window_height = vim.api.nvim_win_get_height(object.winner)
+                local window_last_line = vim.fn.line("w$", object.winner)
 
                 if
-                    buffer_total_line + 1 <= window_height
+                    window_height >= buffer_total_line
                     or cursor_line == buffer_total_line
                 then
-                    vim.api.nvim_echo(
-                        { { "Can't scroll down", "WarningMsg" } },
-                        false,
-                        {}
-                    )
+                    -- vim.api.nvim_echo(
+                    --     { { "Can't scroll down", "WarningMsg" } },
+                    --     false,
+                    --     {}
+                    -- )
                     return
                 end
 
@@ -142,29 +141,34 @@ function M.scroll_docs_to_down(map)
                 if cursor_line < window_last_line then
                     if window_last_line + 5 < buffer_total_line then
                         vim.api.nvim_win_set_cursor(
-                            opts.win_id,
+                            object.winner,
                             { window_last_line + 5, 0 }
                         )
                     else
                         vim.api.nvim_win_set_cursor(
-                            opts.win_id,
+                            object.winner,
                             { buffer_total_line, 0 }
                         )
                     end
                 elseif cursor_line + 5 >= buffer_total_line then
                     vim.api.nvim_win_set_cursor(
-                        opts.win_id,
+                        object.winner,
                         { buffer_total_line, 0 }
                     )
                 else
                     vim.api.nvim_win_set_cursor(
-                        opts.win_id,
+                        object.winner,
                         { cursor_line + 5, 0 }
                     )
                 end
 
                 vim.opt.scrolloff = cache_scrolloff
 
+                api.fn.generate_win_percentage_footer(
+                    "down",
+                    object.winner,
+                    object.bufnr
+                )
                 return
             end
         end

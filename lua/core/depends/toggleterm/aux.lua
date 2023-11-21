@@ -59,14 +59,14 @@ function M.gf_goto_err_file(term)
         mode = { "n" },
         lhs = "gf",
         rhs = function()
-            for _, opts in ipairs(api.fn.get_all_window_buffer_filetype()) do
+            for _, object in ipairs(api.fn.get_all_window_buffer_filetype()) do
                 if
                     vim.tbl_contains(
                         vim.tbl_keys(gf_filetype_rule_mapping),
-                        opts.buf_ft
+                        object.filetype
                     )
                 then
-                    local rule = gf_filetype_rule_mapping[opts.buf_ft]
+                    local rule = gf_filetype_rule_mapping[object.filetype]
                     local line = vim.api.nvim_get_current_line()
                     local filepath, row, col = line:match(rule)
                     if filepath then
@@ -110,8 +110,8 @@ end
 
 function M.run_terminal_command(command)
     local tree = require("nvim-tree.api").tree
-    for _, opts in ipairs(api.fn.get_all_window_buffer_filetype()) do
-        if opts.buf_ft == "NvimTree" then
+    for _, object in ipairs(api.fn.get_all_window_buffer_filetype()) do
+        if object.filetype == "NvimTree" then
             tree.toggle({ focus = false })
             vim.cmd(command)
             tree.toggle({ focus = false })

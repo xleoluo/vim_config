@@ -1,4 +1,5 @@
 -- https://github.com/luukvbaal/statuscol.nvim
+
 local api = require("utils.api")
 
 local M = {}

@@ -129,8 +129,8 @@ function M.register_maps()
             mode = { "n" },
             lhs = "<leader>de",
             rhs = function()
-                for _, opts in ipairs(api.fn.get_all_window_buffer_filetype()) do
-                    if opts.buf_ft == "dapui_hover" then
+                for _, object in ipairs(api.fn.get_all_window_buffer_filetype()) do
+                    if object.filetype == "dapui_hover" then
                         ---@diagnostic disable-next-line: missing-parameter
                         require("dapui").eval()
                         return

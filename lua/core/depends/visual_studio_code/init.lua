@@ -45,9 +45,9 @@ function M.load()
             ---@diagnostic disable-next-line: unused-local
             before = function(conf, colors, utils)
                 if api.get_setting().is_float_border() then
-                    local viscode_background = colors.__vscode_background
+                    local vscode_background = colors.__vscode_background
                     --
-                    colors.__vscode_local_background = viscode_background
+                    colors.__vscode_local_background = vscode_background
                 end
             end,
             ---@diagnostic disable-next-line: unused-local
@@ -55,10 +55,11 @@ function M.load()
                 if api.get_setting().is_float_border() then
                     local __vscode_local_background = "#252526"
                     --
-                    utils.hl.set(
-                        "BufferLineFill",
-                        { bg = __vscode_local_background }
-                    )
+                    utils.hl.bulk_set({
+                        Pmenu = { bg = __vscode_local_background },
+                        Menu = { bg = __vscode_local_background },
+                        BufferLineFill = { bg = __vscode_local_background },
+                    })
                 end
             end,
         },

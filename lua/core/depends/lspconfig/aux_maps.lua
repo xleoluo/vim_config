@@ -35,7 +35,7 @@ function M.toggle_inlay_hint()
     vim.lsp.inlay_hint.enable(0, inlay_hint)
 end
 
-function M.toggle_sigature_help()
+function M.toggle_signature_help()
     for _, object in ipairs(api.fn.get_all_window_buffer_filetype()) do
         if object.filetype == lsp_hover_filetype.signature then
             vim.api.nvim_win_close(object.winner, false)
@@ -62,7 +62,10 @@ function M.scroll_docs_to_up(map, scroll)
                 local window_height = vim.api.nvim_win_get_height(object.winner)
                 local win_first_line = vim.fn.line("w0", object.winner)
 
-                if window_height >= buffer_total_line or cursor_line == 1 then
+                if
+                    buffer_total_line + 1 <= window_height
+                    or cursor_line == 1
+                then
                     -- vim.api.nvim_echo(
                     --     { { "Can't scroll up", "WarningMsg" } },
                     --     false,
@@ -125,7 +128,8 @@ function M.scroll_docs_to_down(map, scroll)
                 local window_last_line = vim.fn.line("w$", object.winner)
 
                 if
-                    window_height >= buffer_total_line
+
+                    buffer_total_line + 1 <= window_height
                     or cursor_line == buffer_total_line
                 then
                     -- vim.api.nvim_echo(

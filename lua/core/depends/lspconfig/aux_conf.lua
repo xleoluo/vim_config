@@ -130,7 +130,7 @@ local function lsp_signature_help_handle(_, result, ctx, config)
     end
 end
 
-function M.get_client_headlers(configuration)
+function M.get_client_headlerss(configuration)
     -------------------------------------------
 
     -------------------------------------------
@@ -219,7 +219,7 @@ function M.init_configuration(configuration)
         private_on_attach(client, bufnr)
     end
 
-    configuration.handlers = M.get_client_headlers(configuration)
+    configuration.handlers = M.get_client_headlerss(configuration)
     configuration.capabilities = M.get_client_capabilities(configuration)
 
     return configuration

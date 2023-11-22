@@ -154,17 +154,27 @@ end
 function M.generate_win_percentage_footer(direction, winner, bufnr)
     local cline = vim.fn.line(".", winner)
     local aline = vim.api.nvim_buf_line_count(bufnr)
+
     local win_height = vim.api.nvim_win_get_height(winner)
     local win_last_line = vim.fn.line("w$", winner)
 
-    local current_percentage
+    -- Used to determine if the hover is displayed for the first time
+    local ok, _ = pcall(vim.api.nvim_win_get_var, winner, "footer")
 
+    local current_percentage = math.floor(win_last_line / aline * 100)
     if "up" == direction and 1 == cline then
         current_percentage = 0
-    elseif "down" == direction and aline < win_height then
-        current_percentage = 100
-    else
-        current_percentage = math.floor(win_last_line / aline * 100)
+    end
+
+    if
+        -- The display content is less than the displayable area
+        (aline + 1 <= win_height)
+        -- Didn't get the last footer, and the user wants to scroll up
+        or (not ok and "up" == direction)
+        -- The first time it is displayed, and the 100% is ready to be displayed
+        or (not ok and 100 == current_percentage)
+    then
+        return
     end
 
     vim.api.nvim_win_set_config(winner, {
@@ -173,6 +183,8 @@ function M.generate_win_percentage_footer(direction, winner, bufnr)
         ),
         footer_pos = "right",
     })
+
+    vim.api.nvim_win_set_var(winner, "footer", current_percentage)
 end
 
 return M

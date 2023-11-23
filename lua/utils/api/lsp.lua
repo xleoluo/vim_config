@@ -1,5 +1,9 @@
 local M = {}
 
+M.constant = {
+    float_feature = "lsp_float",
+}
+
 function M.filter_publish_diagnostics(
     a,
     params,

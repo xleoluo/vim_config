@@ -1,14 +1,11 @@
+---@diagnostic disable: param-type-mismatch
 local api = require("utils.api")
 
 local M = {}
 
 local inlay_hint = api.get_setting().is_lspconfig_inlay_hint()
 local float_border_style = api.get_setting().get_float_border("rounded")
-
-local lsp_hover_filetype = {
-    hover = "lsp-hover",
-    signature = "lsp-signature-help",
-}
+local lsp_buf_var_feature = "lsp-float"
 
 -------------------------------------------------------------------------------
 
@@ -36,9 +33,9 @@ function M.toggle_inlay_hint()
 end
 
 function M.toggle_signature_help()
-    for _, object in ipairs(api.fn.get_all_window_buffer_filetype()) do
-        if object.filetype == lsp_hover_filetype.signature then
-            vim.api.nvim_win_close(object.winner, false)
+    for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+        if api.fn.buf_has_var(bufnr, api.lsp.constant.float_feature) then
+            vim.api.nvim_win_close(vim.fn.bufwinid(bufnr), false)
             return
         end
     end
@@ -49,18 +46,13 @@ function M.scroll_docs_to_up(map, scroll)
     local cache_scrolloff = vim.opt.scrolloff:get()
 
     return function()
-        for _, object in ipairs(api.fn.get_all_window_buffer_filetype()) do
-            if
-                vim.tbl_contains(
-                    vim.tbl_values(lsp_hover_filetype),
-                    object.filetype
-                )
-            then
-                local cursor_line = vim.fn.line(".", object.winner)
-                local buffer_total_line =
-                    vim.api.nvim_buf_line_count(object.bufnr)
-                local window_height = vim.api.nvim_win_get_height(object.winner)
-                local win_first_line = vim.fn.line("w0", object.winner)
+        for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+            if api.fn.buf_has_var(bufnr, api.lsp.constant.float_feature) then
+                local winner = vim.fn.bufwinid(bufnr)
+                local cursor_line = vim.fn.line(".", winner)
+                local buffer_total_line = vim.api.nvim_buf_line_count(bufnr)
+                local window_height = vim.api.nvim_win_get_height(winner)
+                local win_first_line = vim.fn.line("w0", winner)
 
                 if
                     buffer_total_line + 1 <= window_height
@@ -79,27 +71,23 @@ function M.scroll_docs_to_up(map, scroll)
                 if cursor_line > win_first_line then
                     if win_first_line - scroll > 1 then
                         vim.api.nvim_win_set_cursor(
-                            object.winner,
+                            winner,
                             { win_first_line - scroll, 0 }
                         )
                     else
-                        vim.api.nvim_win_set_cursor(object.winner, { 1, 0 })
+                        vim.api.nvim_win_set_cursor(winner, { 1, 0 })
                     end
                 elseif cursor_line - scroll < 1 then
-                    vim.api.nvim_win_set_cursor(object.winner, { 1, 0 })
+                    vim.api.nvim_win_set_cursor(winner, { 1, 0 })
                 else
                     vim.api.nvim_win_set_cursor(
-                        object.winner,
+                        winner,
                         { cursor_line - scroll, 0 }
                     )
                 end
                 vim.opt.scrolloff = cache_scrolloff
 
-                api.fn.generate_win_percentage_footer(
-                    "up",
-                    object.winner,
-                    object.bufnr
-                )
+                api.fn.generate_percentage_footer("up", winner, bufnr)
                 return
             end
         end
@@ -114,18 +102,14 @@ function M.scroll_docs_to_down(map, scroll)
     local cache_scrolloff = vim.opt.scrolloff:get()
 
     return function()
-        for _, object in ipairs(api.fn.get_all_window_buffer_filetype()) do
-            if
-                vim.tbl_contains(
-                    vim.tbl_values(lsp_hover_filetype),
-                    object.filetype
-                )
-            then
-                local cursor_line = vim.fn.line(".", object.winner)
-                local buffer_total_line =
-                    vim.api.nvim_buf_line_count(object.bufnr)
-                local window_height = vim.api.nvim_win_get_height(object.winner)
-                local window_last_line = vim.fn.line("w$", object.winner)
+        for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+            if api.fn.buf_has_var(bufnr, api.lsp.constant.float_feature) then
+                local winner = vim.fn.bufwinid(bufnr)
+
+                local cursor_line = vim.fn.line(".", winner)
+                local buffer_total_line = vim.api.nvim_buf_line_count(bufnr)
+                local window_height = vim.api.nvim_win_get_height(winner)
+                local window_last_line = vim.fn.line("w$", winner)
 
                 if
 
@@ -145,34 +129,30 @@ function M.scroll_docs_to_down(map, scroll)
                 if cursor_line < window_last_line then
                     if window_last_line + scroll < buffer_total_line then
                         vim.api.nvim_win_set_cursor(
-                            object.winner,
+                            winner,
                             { window_last_line + scroll, 0 }
                         )
                     else
                         vim.api.nvim_win_set_cursor(
-                            object.winner,
+                            winner,
                             { buffer_total_line, 0 }
                         )
                     end
                 elseif cursor_line + scroll >= buffer_total_line then
                     vim.api.nvim_win_set_cursor(
-                        object.winner,
+                        winner,
                         { buffer_total_line, 0 }
                     )
                 else
                     vim.api.nvim_win_set_cursor(
-                        object.winner,
+                        winner,
                         { cursor_line + scroll, 0 }
                     )
                 end
 
                 vim.opt.scrolloff = cache_scrolloff
 
-                api.fn.generate_win_percentage_footer(
-                    "down",
-                    object.winner,
-                    object.bufnr
-                )
+                api.fn.generate_percentage_footer("down", winner, bufnr)
                 return
             end
         end

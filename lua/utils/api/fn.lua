@@ -41,21 +41,17 @@ function M.tbl_find_index(tbl, element)
     return index
 end
 
--- Get all window-buffer-filetype, return table
-function M.get_all_window_buffer_filetype()
-    return vim.tbl_map(function(winner)
-        if vim.api.nvim_win_is_valid(winner) then
-            local bufnr = vim.api.nvim_win_get_buf(winner)
-            local filetype = vim.api.nvim_buf_get_option(bufnr, "filetype")
-            return {
-                winner = winner,
-                bufnr = bufnr,
-                filetype = filetype,
-            }
-        end
-    end, vim.api.nvim_list_wins())
+-- Buffer has variable
+function M.buf_has_var(bufnr, name)
+    return pcall(vim.api.nvim_buf_get_var, bufnr, name)
 end
+
+function M.win_has_var(winner, name)
+    return pcall(vim.api.nvim_win_get_var, winner, name)
+end
+
 ----------------------------------------- depends plugin auxiliary fn ------------------------------------------
+
 -- Get all plugin ignore filetypes
 function M.get_ignore_filetypes(filetypes)
     return vim.tbl_extend("force", {
@@ -73,6 +69,7 @@ function M.get_ignore_filetypes(filetypes)
         "TelescopePrompt",
     }, filetypes or {})
 end
+
 -----------------------------------------------------------------------------------
 -- Get all can require module from directory
 function M.get_package_from_directory(dir_path, ignore_package_array)
@@ -151,24 +148,24 @@ end
 -----------------------------------------------------------------------------------
 
 -- Generate a percent sign page turn indicator
-function M.generate_win_percentage_footer(direction, winner, bufnr)
-    local cline = vim.fn.line(".", winner)
-    local aline = vim.api.nvim_buf_line_count(bufnr)
+function M.generate_percentage_footer(direction, winner, bufnr)
+    local cursor_line = vim.fn.line(".", winner)
+    local buffer_total_line = vim.api.nvim_buf_line_count(bufnr)
+    local window_height = vim.api.nvim_win_get_height(winner)
+    local window_last_line = vim.fn.line("w$", winner)
 
-    local win_height = vim.api.nvim_win_get_height(winner)
-    local win_last_line = vim.fn.line("w$", winner)
-
-    -- Used to determine if the hover is displayed for the first time
-    local ok, _ = pcall(vim.api.nvim_win_get_var, winner, "footer")
-
-    local current_percentage = math.floor(win_last_line / aline * 100)
-    if "up" == direction and 1 == cline then
+    local current_percentage =
+        math.floor(window_last_line / buffer_total_line * 100)
+    if "up" == direction and 1 == cursor_line then
         current_percentage = 0
     end
 
+    -- Used to determine if the hover is displayed for the first time
+    local ok = M.win_has_var(winner, "footer")
+
     if
         -- The display content is less than the displayable area
-        (aline + 1 <= win_height)
+        (buffer_total_line + 1 <= window_height)
         -- Didn't get the last footer, and the user wants to scroll up
         or (not ok and "up" == direction)
         -- The first time it is displayed, and the 100% is ready to be displayed

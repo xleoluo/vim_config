@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end,
 })
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
+vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = { "*" },
     callback = function()
         vim.opt.formatoptions = vim.opt.formatoptions - { "c", "r", "o" }

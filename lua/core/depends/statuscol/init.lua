@@ -42,6 +42,13 @@ function M.load()
     })
 end
 
-function M.after() end
+function M.after()
+    vim.api.nvim_create_autocmd({ "FileType" }, {
+        pattern = api.fn.get_ignore_filetypes(),
+        callback = function()
+            vim.opt_local.foldcolumn = "0"
+        end,
+    })
+end
 
 return M

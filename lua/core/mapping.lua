@@ -195,6 +195,15 @@ api.map.bulk_register({
         options = { silent = true, expr = true },
         description = "Move to the last character at the end of the line",
     },
+    {
+        mode = { "n" },
+        lhs = "<leader>sl",
+        rhs = function()
+            vim.cmd(("source %s"):format(api.get_setting().get_session_path()))
+        end,
+        options = { silent = true },
+        description = "If Neovim loads without parameters, the session is automatically resumed",
+    },
 })
 
 -- PopUp content

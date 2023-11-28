@@ -1,7 +1,22 @@
 local api = require("utils.api")
 
+local restore = vim.api.nvim_create_augroup("restore", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufUnload" }, {
+    pattern = "*",
+    group = restore,
+    command = "silent! mkview",
+})
+
+vim.api.nvim_create_autocmd({ "BufRead" }, {
+    pattern = "*",
+    group = restore,
+    command = "silent! loadview",
+})
+
 vim.api.nvim_create_autocmd("BufReadPost", {
     pattern = { "*" },
+    group = restore,
     callback = function()
         if
             vim.fn.line("'\"") > 0
@@ -14,6 +29,13 @@ vim.api.nvim_create_autocmd("BufReadPost", {
             vim.cmd("silent! foldopen")
         end
     end,
+})
+
+vim.api.nvim_create_autocmd("VimLeavePre", {
+    pattern = { "*" },
+    group = restore,
+    command = ("mksession! %s"):format(api.get_setting().get_session_path()),
+    desc = "Each time you exit Neovim, save the session",
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {

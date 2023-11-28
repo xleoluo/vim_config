@@ -60,8 +60,8 @@ function M.get_icon_groups(groups_name, has_suffix_space)
     return icon
 end
 
-
 -----------------------------------------------------------------------------------
+
 function M.get_depend_base_path()
     return api.path.join("core", "depends")
 end
@@ -72,6 +72,10 @@ end
 
 function M.get_depends_install_path()
     return api.path.join(vim.fn.stdpath("data"), "depends")
+end
+
+function M.get_session_path()
+    return api.path.join(vim.fn.stdpath("data"), "session.vim")
 end
 
 function M.get_cspell_conf_path()

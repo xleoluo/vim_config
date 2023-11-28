@@ -17,14 +17,7 @@ local root_files = {
     "run.py",
 }
 
-local ignore_diagnostic_message = {
-    '"e" is not accessed',
-    'Variable "e" is not accessed',
-    '"i" is not accessed',
-    'Variable "i" is not accessed',
-    '"j" is not accessed',
-    'Variable "j" is not accessed',
-}
+local ignore_diagnostic_message = {}
 
 return {
     filetypes = { "python" },
@@ -67,14 +60,15 @@ return {
                     strictListInference = true,
                     strictDictionaryInference = true,
                     strictSetInference = true,
-                    reportUnusedImport = "warning",
-                    reportUnusedClass = "warning",
-                    reportUnusedFunction = "warning",
-                    reportUnusedVariable = "warning",
-                    reportUnusedCoroutine = "warning",
+                    reportUnusedExpression = "none",
+                    reportUnusedCoroutine = "none",
+                    reportUnusedClass = "none",
+                    reportUnusedImport = "none",
+                    reportUnusedFunction = "none",
+                    reportUnusedVariable = "none",
+                    reportUnusedCallResult = "none",
                     reportDuplicateImport = "warning",
                     reportPrivateUsage = "warning",
-                    reportUnusedExpression = "warning",
                     reportConstantRedefinition = "error",
                     reportIncompatibleMethodOverride = "error",
                     reportMissingImports = "error",

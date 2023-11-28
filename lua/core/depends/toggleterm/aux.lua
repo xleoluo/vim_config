@@ -39,6 +39,16 @@ function M.init(terminal)
                 options = { silent = true, buffer = term.bufnr },
                 description = "Escape lazygit terminal",
             })
+            api.map.unregister({ "t" }, "<esc>")
+        end,
+        on_close = function(term)
+            api.map.register({
+                mode = { "t" },
+                lhs = "<esc>",
+                rhs = "<c-\\><c-n>",
+                options = { silent = true },
+                description = "Escape terminal insert mode",
+            })
         end,
     })
 end

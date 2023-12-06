@@ -40,15 +40,22 @@ M.null_ls = {
             "-a",
             "--max-line-length=120",
         },
-        enable = true
+        enable = true,
     },
     diagnostics = {
         exe = "pylint",
         extra_args = {
             "--rcfile=" .. api.path.generate_absolute_path("./linter/pylintrc"),
         },
-        enable = false
+        enable = false,
     },
+}
+
+M.code_runner = {
+    filetype = { "python" },
+    command = function()
+        return ("python3 %s"):format(vim.fn.expand("%:p"))
+    end,
 }
 
 return M

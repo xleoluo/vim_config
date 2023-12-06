@@ -1,5 +1,7 @@
 local M = {}
 
+local space_rand = {}
+
 function M.register(map)
     map.options.desc = map.description
 
@@ -24,6 +26,19 @@ function M.bulk_register(maps)
 end
 
 function M.register_menu(group, mode, description, command)
+    if "---" == description then
+        local rand = math.random(1, 100)
+        while true do
+            if not vim.tbl_contains(space_rand, rand) then
+                table.insert(space_rand, rand)
+                break
+            else
+                rand = math.random(1, 100)
+            end
+        end
+
+        description = ("-%d-"):format(rand)
+    end
     local cmd = ("%s.%s %s"):format(
         group,
         description:gsub(" ", "\\ ") or "",

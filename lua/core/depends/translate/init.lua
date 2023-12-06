@@ -41,16 +41,6 @@ function M.load()
             deepl_free = {},
             translate_shell = {},
         },
-        preset = {
-            command = {
-                translate_shell = {
-                    args = {
-                        "-e",
-                        "bing",
-                    },
-                },
-            },
-        },
     })
 end
 

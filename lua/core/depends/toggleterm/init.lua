@@ -7,6 +7,7 @@ local M = {}
 
 M.lazy = {
     "akinsho/toggleterm.nvim",
+    event = { "UIEnter" },
 }
 
 function M.init()
@@ -36,10 +37,38 @@ function M.load()
     })
 end
 
-function M.after() end
+function M.after()
+    -- CodeRunner implementation
+    local runner = api.get_lang().get_code_runner()
+    vim.api.nvim_create_user_command("CodeRunner", function(ctx)
+        local callback = runner[vim.opt.filetype:get()]
+        if callback then
+            local count = vim.api.nvim_eval("v:count1")
+            -- Add go_back=0 to keep the cursor in term
+            local command = ([[exe %d."TermExec cmd='%s' go_back=0"]]):format(
+                count,
+                callback()
+            )
+            aux.run_terminal_command(command)
+        else
+            vim.notify(
+                "Not found code runner conf",
+                "WARN",
+                { annote = "[SimpleNvim]", key = "[SimpleNvim]" }
+            )
+        end
+    end, { desc = "Code Run in toggleterm" })
+end
 
 function M.register_maps()
     api.map.bulk_register({
+        {
+            mode = { "n" },
+            lhs = "<leader>cr",
+            rhs = "<cmd>CodeRunner<cr>",
+            options = { silent = true },
+            description = "Code running in terminal",
+        },
         {
             mode = { "n" },
             lhs = "<leader>tf",

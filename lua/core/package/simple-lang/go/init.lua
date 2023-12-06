@@ -28,8 +28,15 @@ M.null_ls = {
     formatting = {
         exe = "gofmt",
         extra_args = {},
-        enable = true
-    }
+        enable = true,
+    },
+}
+
+M.code_runner = {
+    filetype = { "go" },
+    command = function()
+        return "go run ."
+    end,
 }
 
 return M

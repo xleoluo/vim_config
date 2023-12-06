@@ -7,13 +7,13 @@ local configurations = {
         request = "launch",
         program = function()
             local source_path = vim.fn.expand("%:p")
-            local execute_path = vim.fn.expand("%:p:r")
+            local binary_path = vim.fn.expand("%:p:r")
             local command = ("gcc -fdiagnostics-color=always -g %s -o %s"):format(
                 source_path,
-                execute_path
+                binary_path
             )
             vim.fn.jobstart(command)
-            return execute_path
+            return binary_path
         end,
         cwd = "${workspaceFolder}",
         stopAtEntry = true,

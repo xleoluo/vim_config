@@ -27,4 +27,11 @@ M.null_ls = {
     },
 }
 
+M.code_runner = {
+    filetype = { "rust" },
+    command = function()
+        return "cargo run ."
+    end,
+}
+
 return M

@@ -28,7 +28,7 @@ M.dapconfig = {
 }
 
 M.null_ls = {
-    formatting  = {
+    formatting = {
         exe = "stylua",
         extra_args = {
             "--indent-type=Spaces",
@@ -37,6 +37,13 @@ M.null_ls = {
         },
         enable = true,
     },
+}
+
+M.code_runner = {
+    filetype = { "lua" },
+    command = function()
+        return ("lua %s"):format(vim.fn.expand("%:p"))
+    end,
 }
 
 return M

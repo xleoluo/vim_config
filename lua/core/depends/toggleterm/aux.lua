@@ -103,6 +103,8 @@ function M.gf_goto_err_file(term)
     })
 end
 
+----------------------------------
+
 function M.on_open(term)
     vim.wo.spell = false
 

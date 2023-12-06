@@ -23,8 +23,15 @@ M.null_ls = {
     formatting = {
         exe = "shfmt",
         extra_args = {},
-        enable = true
-    }
+        enable = true,
+    },
+}
+
+M.code_runner = {
+    filetype = { "sh" },
+    command = function()
+        return ("sh %s"):format(vim.fn.expand("%:p"))
+    end,
 }
 
 return M

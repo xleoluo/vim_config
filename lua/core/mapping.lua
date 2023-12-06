@@ -213,8 +213,18 @@ vim.cmd.aunmenu("PopUp")
 api.map.bulk_register_menu("PopUp", {
     {
         mode = "a",
+        description = "Code Runner",
+        command = "<cmd>CodeRunner<cr>",
+    },
+    {
+        mode = "a",
         description = "Code Action",
         command = "<cmd>lua vim.lsp.buf.code_action()<cr>",
+    },
+    {
+        mode = "a",
+        description = "---",
+        command = "<nop>",
     },
     {
         mode = "a",
@@ -223,7 +233,17 @@ api.map.bulk_register_menu("PopUp", {
     },
     {
         mode = "a",
-        description = "-1-",
+        description = "Open New Window",
+        command = "<cmd>tabnew<cr>",
+    },
+    {
+        mode = "a",
+        description = "Close This Window",
+        command = "<cmd>BufferDelete<cr>",
+    },
+    {
+        mode = "a",
+        description = "---",
         command = "<nop>",
     },
     {
@@ -243,7 +263,7 @@ api.map.bulk_register_menu("PopUp", {
     },
     {
         mode = "a",
-        description = "-2-",
+        description = "---",
         command = "<nop>",
     },
     {
@@ -258,7 +278,7 @@ api.map.bulk_register_menu("PopUp", {
     },
     {
         mode = "a",
-        description = "-3-",
+        description = "---",
         command = "<nop>",
     },
     {
@@ -302,13 +322,8 @@ api.map.bulk_register_menu("PopUp", {
         command = "<c-home><c-o>VG",
     },
     {
-        mode = "i",
-        description = "-4-",
-        command = "<nop>",
-    },
-    {
-        mode = "v",
-        description = "-4-",
+        mode = "a",
+        description = "---",
         command = "<nop>",
     },
     {

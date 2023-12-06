@@ -24,11 +24,29 @@ function M.has_language(langauge)
     return vim.tbl_contains(vim.tbl_keys(M.lang_pack_array), langauge)
 end
 
+function M.get_code_runner()
+    local mapping = {}
+    local runner = "code_runner"
+
+    for _, lang_pack in ipairs(M.get_lang_pack()) do
+        if lang_pack[runner] then
+            for _, filetype in ipairs(lang_pack[runner]["filetype"]) do
+                mapping[filetype] = lang_pack[runner]["command"]
+            end
+        end
+    end
+
+    return mapping
+end
+
 function M.get_lang_install(install_name)
     local all_install = {}
 
     for _, lang_pack in ipairs(M.get_lang_pack()) do
-        if not vim.tbl_isempty(lang_pack[install_name]) then
+        if
+            lang_pack[install_name]
+            and not vim.tbl_isempty(lang_pack[install_name])
+        then
             all_install = vim.list_extend(all_install, lang_pack[install_name])
         end
     end

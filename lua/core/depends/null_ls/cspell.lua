@@ -33,8 +33,15 @@ function M.get_source()
                 "--config",
                 api.get_setting().get_cspell_conf_path(),
             },
+            diagnostic_config = {
+                underline = true,
+                severity_sort = true,
+                update_in_insert = false,
+                signs = api.get_setting().is_code_spell_display_hint(),
+                virtual_text = api.get_setting().is_code_spell_display_hint(),
+            },
             disabled_filetypes = api.fn.get_ignore_filetypes(),
-            runtime_condition = api.get_setting().is_code_spell,
+            runtime_condition = api.get_setting().is_code_spell_switch,
         }),
     }
 end
@@ -46,13 +53,13 @@ function M.register_maps()
             lhs = "<leader>cs",
             rhs = function()
                 local null_query = { name = "cspell" }
-                local code_spell = not api.get_setting().is_code_spell()
+                local code_spell = not api.get_setting().is_code_spell_switch()
                 if code_spell then
                     M.null_ls.enable(null_query)
                 else
                     M.null_ls.disable(null_query)
                 end
-                api.get_config()["code_spell"] = code_spell
+                api.get_config()["spell"]["switch"] = code_spell
             end,
             options = { silent = true },
             description = "Enable or disable spell checking",
@@ -63,9 +70,9 @@ function M.register_maps()
             lhs = "[s",
             rhs = function()
                 vim.diagnostic.goto_prev({
-                    namespace = api.lsp.get_diagnostic_namespace_by_name(
-                        "cspell"
-                    ),
+                    namespace = api.lsp.include_diagnostic_namespace_by_name({
+                        "cspell",
+                    }),
                     float = false,
                 })
             end,
@@ -78,9 +85,9 @@ function M.register_maps()
             lhs = "]s",
             rhs = function()
                 vim.diagnostic.goto_next({
-                    namespace = api.lsp.get_diagnostic_namespace_by_name(
-                        "cspell"
-                    ),
+                    namespace = api.lsp.include_diagnostic_namespace_by_name({
+                        "cspell",
+                    }),
                     float = false,
                 })
             end,

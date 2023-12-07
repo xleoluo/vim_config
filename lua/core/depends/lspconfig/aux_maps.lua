@@ -5,19 +5,20 @@ local M = {}
 
 local inlay_hint = api.get_setting().is_lspconfig_inlay_hint()
 local float_border_style = api.get_setting().get_float_border("rounded")
-local lsp_buf_var_feature = "lsp-float"
 
 -------------------------------------------------------------------------------
 
 function M.goto_prev_diagnostic()
     vim.diagnostic.goto_prev({
         float = { border = float_border_style },
+        namespace = api.lsp.exclude_diagnostic_namespace_by_name({ "cspell" }),
     })
 end
 
 function M.goto_next_diagnostic()
     vim.diagnostic.goto_next({
         float = { border = float_border_style },
+        namespace = api.lsp.exclude_diagnostic_namespace_by_name({ "cspell" }),
     })
 end
 

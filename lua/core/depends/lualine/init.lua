@@ -32,7 +32,7 @@ function M.load()
         "spell",
         fmt = function(content, context)
             return ("Spell: %s"):format(
-                api.get_setting().is_code_spell() and "Y" or "N"
+                api.get_setting().is_code_spell_switch() and "Y" or "N"
             )
         end,
     })

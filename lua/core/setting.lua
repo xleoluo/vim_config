@@ -11,12 +11,16 @@ function M.is_auto_save()
     return api.get_config()["auto_save"]
 end
 
-function M.is_code_spell()
-    return api.get_config()["code_spell"]
-end
-
 function M.is_input_switch()
     return api.get_config()["input_switch"]
+end
+
+function M.is_code_spell_switch()
+    return api.get_config()["spell"]["switch"]
+end
+
+function M.is_code_spell_display_hint()
+    return api.get_config()["spell"]["display_hint"]
 end
 
 function M.is_float_border()

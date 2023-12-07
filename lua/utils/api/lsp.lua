@@ -56,10 +56,22 @@ function M.filter_publish_diagnostics(
     )
 end
 
-function M.get_diagnostic_namespace_by_name(name)
+function M.include_diagnostic_namespace_by_name(lsp_names)
     local namespace = 0
     for _, diagnostic in ipairs(vim.diagnostic.get(0)) do
-        if diagnostic.source == name then
+        if vim.tbl_contains(lsp_names, diagnostic.source) then
+            ---@diagnostic disable-next-line: undefined-field
+            namespace = diagnostic.namespace
+            break
+        end
+    end
+    return namespace
+end
+
+function M.exclude_diagnostic_namespace_by_name(lsp_names)
+    local namespace = 0
+    for _, diagnostic in ipairs(vim.diagnostic.get(0)) do
+        if not vim.tbl_contains(lsp_names, diagnostic.source) then
             ---@diagnostic disable-next-line: undefined-field
             namespace = diagnostic.namespace
             break

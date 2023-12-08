@@ -86,12 +86,8 @@ return {
             url = "postgres://postgres:123@10.10.100.38:5432/xjpxz",
         },
         {
-            name = "Kober",
-            url = "postgres://postgres:123@10.10.100.38:5432/kb",
-        },
-        {
-            name = "cemat",
-            url = "postgres://postgres:123456@10.10.120.181:5432/902",
+            name = "ZQ",
+            url = "postgres://postgres:123456@10.10.181.137:5432/2zhongqing15.8",
         },
     },
 }

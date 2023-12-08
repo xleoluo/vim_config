@@ -1,6 +1,7 @@
 -- https://github.com/nvim-treesitter/nvim-treesitter
 
 local api = require("utils.api")
+local aux = require("core.depends.treesitter.aux")
 
 local M = {}
 
@@ -26,6 +27,7 @@ function M.load()
     M.nvim_treesitter_configs.setup({
         ensure_installed = api.get_lang().get_treesitter_install({
             "xml",
+            "regex",
             "dockerfile",
             "git_config",
             "git_rebase",
@@ -57,6 +59,14 @@ function M.load()
     })
 end
 
-function M.after() end
+function M.after()
+    for lang, query in pairs(aux.queries) do
+        if api.get_lang().has_language(lang) then
+            for query_name, text in pairs(query) do
+                vim.treesitter.query.set(lang, query_name, text)
+            end
+        end
+    end
+end
 
 return M

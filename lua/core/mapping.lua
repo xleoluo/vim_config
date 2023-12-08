@@ -239,7 +239,7 @@ api.map.bulk_register_menu("PopUp", {
     {
         mode = "a",
         description = "Close This Window",
-        command = "<cmd>BufferDelete<cr>",
+        command = "<cmd>close<cr>",
     },
     {
         mode = "a",

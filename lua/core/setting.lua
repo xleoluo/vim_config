@@ -43,6 +43,10 @@ function M.is_enable_icon_groups(groups_name)
     return api.get_config()["icon"][groups_name]["enable"]
 end
 
+function M.is_language_injections()
+    return api.get_config()["lspconfig"]["language_injections"]
+end
+
 function M.get_database()
     return api.get_config()["database"]
 end

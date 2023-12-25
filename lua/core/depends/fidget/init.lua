@@ -5,7 +5,6 @@ local M = {}
 M.lazy = {
     "j-hui/fidget.nvim",
     priority = 80,
-    cond = false
 }
 
 function M.init()

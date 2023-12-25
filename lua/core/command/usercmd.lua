@@ -57,3 +57,11 @@ vim.api.nvim_create_user_command("AutoReload", function(ctx)
         timer = nil
     end
 end, { desc = "Start Automatically flush the buffer" })
+
+vim.api.nvim_create_user_command("CreateRunConf", function(ctx)
+    local filepath = api.path.join(vim.fn.expand("%:p:h"), ".run.json")
+    if not api.path.exists(filepath) then
+        api.file.write(filepath, '{\n  "execute": ""\n}')
+    end
+    vim.cmd("e " .. filepath)
+end, { desc = "Create Runner config file" })

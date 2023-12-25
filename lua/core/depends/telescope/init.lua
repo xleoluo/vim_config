@@ -41,6 +41,26 @@ function M.load()
             },
         },
         pickers = {
+            find_files = {
+                mappings = {
+                    i = {
+                        ["<c-s>"] = "file_split",
+                    },
+                    n = {
+                        ["<c-s>"] = "file_split",
+                    },
+                },
+            },
+            live_grep = {
+                mappings = {
+                    i = {
+                        ["<c-s>"] = "file_split",
+                    },
+                    n = {
+                        ["<c-s>"] = "file_split",
+                    },
+                },
+            },
             buffers = {
                 mappings = {
                     i = {

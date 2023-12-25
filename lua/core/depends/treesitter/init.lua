@@ -60,10 +60,12 @@ function M.load()
 end
 
 function M.after()
-    for lang, query in pairs(aux.queries) do
-        if api.get_lang().has_language(lang) then
-            for query_name, text in pairs(query) do
-                vim.treesitter.query.set(lang, query_name, text)
+    if api.get_setting().is_language_injections() then
+        for lang, query in pairs(aux.queries) do
+            if api.get_lang().has_language(lang) then
+                for query_name, text in pairs(query) do
+                    vim.treesitter.query.set(lang, query_name, text)
+                end
             end
         end
     end

@@ -2,6 +2,7 @@ return {
     auto_save = true,
     float_border = true,
     input_switch = true,
+    language_injections = false,
     transparent_background = false,
     spell = {
         switch = true,

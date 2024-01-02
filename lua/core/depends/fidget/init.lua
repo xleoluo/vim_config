@@ -38,6 +38,10 @@ function M.load()
     })
 end
 
-function M.after() end
+function M.after()
+    vim.api.nvim_create_user_command("FidgetHistory", function(ctx)
+        require("fidget.notification").show_history()
+    end, { desc = "Show fidget history" })
+end
 
 return M

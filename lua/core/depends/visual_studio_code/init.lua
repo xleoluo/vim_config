@@ -7,7 +7,7 @@ local M = {}
 M.lazy = {
     "askfiy/visual_studio_code",
     priority = 100,
-    cond = true,
+    cond = api.get_setting().is_enable_colorscheme("visual_studio_code")
 }
 
 function M.init()

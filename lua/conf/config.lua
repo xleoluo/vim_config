@@ -2,6 +2,8 @@ return {
     auto_save = true,
     float_border = true,
     input_switch = true,
+    colorscheme = "killer-queen",
+    -- visual_studio_code
     language_injections = false,
     transparent_background = false,
     spell = {

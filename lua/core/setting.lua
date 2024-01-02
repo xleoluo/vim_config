@@ -47,6 +47,10 @@ function M.is_language_injections()
     return api.get_config()["lspconfig"]["language_injections"]
 end
 
+function M.is_enable_colorscheme(colorscheme)
+    return colorscheme == api.get_config()["colorscheme"]
+end
+
 function M.get_database()
     return api.get_config()["database"]
 end

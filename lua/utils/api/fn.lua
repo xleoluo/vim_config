@@ -149,6 +149,12 @@ end
 
 -- Generate a percent sign page turn indicator
 function M.generate_percentage_footer(direction, winner, bufnr)
+    local api = require("utils.api")
+
+    if not api.get_setting().is_float_border() then
+        return
+    end
+
     local cursor_line = vim.fn.line(".", winner)
     local buffer_total_line = vim.api.nvim_buf_line_count(bufnr)
     local window_height = vim.api.nvim_win_get_height(winner)

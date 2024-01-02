@@ -36,6 +36,7 @@ vim.opt.linebreak = true
 vim.opt.fillchars = "eob: ,fold: ,foldopen: ,foldsep: ,foldclose:"
 vim.opt.fileencodings = "ucs-bom,utf-8,gbk,big5,gb18030,latin1"
 vim.opt.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,globals"
+vim.opt.showtabline = 2
 
 vim.opt.undofile = true
 

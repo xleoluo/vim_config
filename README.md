@@ -2,7 +2,14 @@
 
 Welcome to SimpleNvim! This is a pre-configured setup tailored for Neovim, designed to provide you with an elegant and efficient editing environment, making your coding journey more enjoyable and productive.
 
+<h6 align="center">visual_studio_code theme</h6>
+
 ![image](https://github.com/askfiy/SimpleNvim/assets/81478335/4ee2eeff-cc50-44b0-9114-82219ce2b487)
+
+
+<h6 align="center">killer-queen theme</h6>
+
+![image](https://github.com/askfiy/SimpleNvim/assets/81478335/aae19a2b-4bf3-4c94-a858-368c1af0ce6b)
 
 ## Key Features
 

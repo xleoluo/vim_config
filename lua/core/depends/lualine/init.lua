@@ -63,14 +63,14 @@ function M.load()
             sections = sections,
         })
     elseif api.get_setting().is_enable_colorscheme("killer-queen") then
-        table.insert(sections.lualine_x, 2, {
+        table.insert(sections.lualine_c, 2, {
             "venn",
             fmt = function(content, context)
                 return ("Venn: %s"):format(vim.b.venn_enabled and "Y" or "N")
             end,
         })
 
-        table.insert(sections.lualine_c, 2, {
+        table.insert(sections.lualine_c, 3, {
             "spell",
             fmt = function(content, context)
                 return ("Spell: %s"):format(
@@ -95,6 +95,7 @@ function M.load()
     else
         M.lualine.setup({
             options = {
+                theme = "auto",
                 icons_enabled = true,
                 disabled_filetypes = {},
                 globalstatus = true,

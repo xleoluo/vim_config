@@ -1,4 +1,5 @@
 -- https://github.com/RRethy/vim-illuminate
+
 local api = require("utils.api")
 
 local M = {}

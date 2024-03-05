@@ -43,5 +43,19 @@
     "prefix": ["ignore"],
     "body": ["$LINE_COMMENT type: ignore"],
     "description": "ignore langserver diagnostic"
+  },
+  "main file": {
+    "prefix": ["main"],
+    "body": [
+      "import asyncio",
+      "",
+      "",
+      "async def main():",
+      "    print(\"hello world\")",
+      "",
+      "if __name__ == \"__main__\":",
+      "    asyncio.run(main())"
+    ],
+    "description": ""
   }
 }

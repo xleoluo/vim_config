@@ -10,7 +10,7 @@ M.lazy = {
     dependencies = {
         "kevinhwang91/promise-async",
     },
-    event = { "VeryLazy" },
+    -- event = { "VeryLazy" },
 }
 
 function M.init()

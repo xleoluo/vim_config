@@ -42,6 +42,3 @@ if vim.g.neovide then
 
     vim.keymap.set({ "c", "t", "i" }, "<C-V>", "<C-R>+") -- Paste command mode
 end
-
-vim.keymap.set("n", "<leader>pt", ":TSToggle highlight<cr>", { silent = true })
-vim.keymap.set("n", "<leader>pp", ":Inspect<cr>", { silent = true })

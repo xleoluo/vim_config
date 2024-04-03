@@ -21,6 +21,13 @@ function M.load()
             parse_before = "no_handle",
             parse_after = "bing",
         },
+        preset = {
+            command = {
+                translate_shell = {
+                    args = { "-e", "bing" },
+                },
+            },
+        },
         parse_after = {
             bing = {
                 cmd = function(lines)

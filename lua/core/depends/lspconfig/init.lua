@@ -46,7 +46,9 @@ function M.after()
         underline = true,
         severity_sort = true,
         update_in_insert = false,
+        ---@diagnostic disable-next-line: assign-type-mismatch
         float = { source = "always" },
+        ---@diagnostic disable-next-line: assign-type-mismatch
         virtual_text = { prefix = "●", source = "always" },
     })
 

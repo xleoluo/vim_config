@@ -23,7 +23,7 @@ function M.load()
             {
                 sign = {
                     name = { "Dap*", "Diag*" },
-                    namespace = { "bulb*", "gitsign*" },
+                    namespace = { "bulb*", "gitsign*" , "diag*"},
                     colwidth = 1,
                 },
                 click = "v:lua.ScSa",

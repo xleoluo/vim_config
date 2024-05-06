@@ -69,6 +69,7 @@ function M.register_maps()
             mode = { "n" },
             lhs = "[s",
             rhs = function()
+                ---@diagnostic disable-next-line: missing-fields
                 vim.diagnostic.goto_prev({
                     namespace = api.lsp.include_diagnostic_namespace_by_name({
                         "cspell",
@@ -84,6 +85,7 @@ function M.register_maps()
             mode = { "n" },
             lhs = "]s",
             rhs = function()
+                ---@diagnostic disable-next-line: missing-fields
                 vim.diagnostic.goto_next({
                     namespace = api.lsp.include_diagnostic_namespace_by_name({
                         "cspell",

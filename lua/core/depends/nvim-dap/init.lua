@@ -26,8 +26,10 @@ function M.load()
     for _, lang_pack in ipairs(api.get_lang().get_lang_pack()) do
         if "string" == type(lang_pack.dapconfig.config) then
             local dapconfig = require(lang_pack.dapconfig.config)
+            ---@diagnostic disable-next-line: inject-field
             M.dap.adapters =
                 vim.tbl_deep_extend("force", M.dap.adapters, dapconfig.adapters)
+            ---@diagnostic disable-next-line: inject-field
             M.dap.configurations = vim.tbl_deep_extend(
                 "force",
                 M.dap.configurations,
@@ -45,6 +47,7 @@ function M.register_maps()
             mode = { "n" },
             lhs = "<leader>db",
             rhs = function()
+                ---@diagnostic disable-next-line: undefined-field
                 require("dap").toggle_breakpoint()
             end,
             options = { silent = true },
@@ -54,6 +57,7 @@ function M.register_maps()
             mode = { "n" },
             lhs = "<leader>dc",
             rhs = function()
+                ---@diagnostic disable-next-line: undefined-field
                 require("dap").clear_breakpoints()
             end,
             options = { silent = true },
@@ -63,6 +67,7 @@ function M.register_maps()
             mode = { "n" },
             lhs = "<F5>",
             rhs = function()
+                ---@diagnostic disable-next-line: undefined-field
                 require("dap").continue()
             end,
             options = { silent = true },
@@ -72,6 +77,7 @@ function M.register_maps()
             mode = { "n" },
             lhs = "<F6>",
             rhs = function()
+                ---@diagnostic disable-next-line: undefined-field
                 require("dap").step_into()
             end,
             options = { silent = true },
@@ -81,7 +87,7 @@ function M.register_maps()
             mode = { "n" },
             lhs = "<F7>",
             rhs = function()
-                ---@diagnostic disable-next-line: missing-parameter
+                ---@diagnostic disable-next-line: missing-parameter, undefined-field
                 require("dap").step_over()
             end,
             options = { silent = true },
@@ -91,6 +97,7 @@ function M.register_maps()
             mode = { "n" },
             lhs = "<F8>",
             rhs = function()
+                ---@diagnostic disable-next-line: undefined-field
                 require("dap").step_out()
             end,
             options = { silent = true },
@@ -100,6 +107,7 @@ function M.register_maps()
             mode = { "n" },
             lhs = "<F9>",
             rhs = function()
+                ---@diagnostic disable-next-line: undefined-field
                 require("dap").run_last()
             end,
             options = { silent = true },
@@ -109,6 +117,7 @@ function M.register_maps()
             mode = { "n" },
             lhs = "<F10>",
             rhs = function()
+                ---@diagnostic disable-next-line: undefined-field
                 require("dap").terminate()
             end,
             options = { silent = true },

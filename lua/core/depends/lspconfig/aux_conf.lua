@@ -108,7 +108,6 @@ function M.init_configuration(configuration)
 
     configuration.on_attach = function(client, bufnr)
         vim.lsp.inlay_hint.enable(
-            0,
             api.get_setting().is_lspconfig_inlay_hint()
         )
         private_on_attach(client, bufnr)

@@ -9,6 +9,7 @@ local float_border_style = api.get_setting().get_float_border("rounded")
 -------------------------------------------------------------------------------
 
 function M.goto_prev_diagnostic()
+    ---@diagnostic disable-next-line: missing-fields
     vim.diagnostic.goto_prev({
         float = { border = float_border_style },
         namespace = api.lsp.exclude_diagnostic_namespace_by_name({ "cspell" }),
@@ -16,6 +17,7 @@ function M.goto_prev_diagnostic()
 end
 
 function M.goto_next_diagnostic()
+    ---@diagnostic disable-next-line: missing-fields
     vim.diagnostic.goto_next({
         float = { border = float_border_style },
         namespace = api.lsp.exclude_diagnostic_namespace_by_name({ "cspell" }),
@@ -30,7 +32,7 @@ end
 
 function M.toggle_inlay_hint()
     inlay_hint = not inlay_hint
-    vim.lsp.inlay_hint.enable(0, inlay_hint)
+    vim.lsp.inlay_hint.enable(inlay_hint)
 end
 
 function M.toggle_signature_help()

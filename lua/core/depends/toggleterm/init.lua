@@ -41,22 +41,36 @@ function M.after()
     -- CodeRunner implementation
     local runner = api.get_lang().get_code_runner()
     vim.api.nvim_create_user_command("CodeRunner", function(ctx)
+        local root_dir = vim.lsp.buf.list_workspace_folders()[1]
+        local config_file = api.path.join(root_dir, ".run.json")
+        local count = vim.api.nvim_eval("v:count1")
+        local command = [[exe %d."TermExec cmd='%s' go_back=0"]]
+
+        if config_file then
+            if api.path.exists(config_file) then
+                local command = command:format(
+                    count,
+                    vim.json.decode(api.file.read(config_file))["run"]
+                )
+                return aux.run_terminal_command(command)
+            end
+        end
+
         local callback = runner[vim.opt.filetype:get()]
         if callback then
-            local count = vim.api.nvim_eval("v:count1")
             -- Add go_back=0 to keep the cursor in term
             local command = ([[exe %d."TermExec cmd='%s' go_back=0"]]):format(
                 count,
                 callback()
             )
-            aux.run_terminal_command(command)
-        else
-            vim.notify(
-                "Not found code runner conf",
-                "WARN",
-                { annote = "[SimpleNvim]", key = "[SimpleNvim]" }
-            )
+            return aux.run_terminal_command(command)
         end
+
+        vim.notify(
+            "Not found code runner conf",
+            "WARN",
+            { annote = "[SimpleNvim]", key = "[SimpleNvim]" }
+        )
     end, { desc = "Code Run in toggleterm" })
 end
 

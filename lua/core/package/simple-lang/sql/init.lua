@@ -23,7 +23,7 @@ M.null_ls = {
     formatting = {
         exe = "sql_formatter",
         extra_args = {
-            "-l=postgresql",
+            "-l=mysql",
         },
         enable = true,
     },

@@ -56,6 +56,7 @@ M.null_ls = {
 M.code_runner = {
     filetype = { "javascript", "typescript" },
     command = function()
+
         local buffer_filetype = vim.opt.filetype:get()
         if "javascript" == buffer_filetype then
             return ("node %s"):format(vim.fn.expand("%:p"))

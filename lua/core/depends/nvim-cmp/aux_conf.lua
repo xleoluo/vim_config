@@ -86,8 +86,9 @@ function M.get_formatting_conf()
 
     ----
 
-    local icons = api.get_setting().get_icon_groups("kind", false)
-    local default_icon = icons["Default"]
+    local kind_icons = api.get_setting().get_icon_groups("kind", false)
+    local source_icons = api.get_setting().get_icon_groups("source", false)
+    local default_icon = kind_icons["Default"]
 
     local complete_window_conf = {
         fixed = false,
@@ -120,14 +121,23 @@ function M.get_formatting_conf()
 
             local source = entry.source.name
 
-            vim_item.kind = ("%s %s"):format(icons[kind] or default_icon, abbr)
             -- vim_item.abbr = kind
             -- vim_item.menu = ("<%s>"):format(source:upper())
 
-            -- icon_prefix
-            vim_item.kind = (" %s "):format(icons[kind] or default_icon)
-            vim_item.menu = ("<%s>"):format(kind)
+            local defualt_kind = (" %s "):format(
+                kind_icons[kind] or default_icon
+            )
 
+            -- icon_prefix
+            if not api.get_setting().is_enable_icon_groups("source") then
+                vim_item.kind = defualt_kind
+            else
+                vim_item.kind = (" %s "):format(
+                    source_icons[source] or defualt_kind
+                )
+            end
+
+            vim_item.menu = ("<%s>"):format(menu)
             vim_item.dup = complete_duplicate_conf[source] or 0
 
             -- determine if it is a fixed window size
@@ -168,6 +178,17 @@ function M.command_source_setup()
             { name = "path" },
             { name = "cmdline" },
         }),
+    })
+
+    vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "sql", "mysql", "plsql" },
+        callback = function()
+            M.cmp.setup.buffer({
+                sources = { { name = "vim-dadbod-completion" } },
+            })
+            vim.bo.filetype = "sql"
+            vim.bo.commentstring = "-- %s"
+        end,
     })
 end
 

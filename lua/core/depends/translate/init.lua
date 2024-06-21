@@ -36,9 +36,11 @@ function M.load()
                     -- Replace \\n to \n
                     ---@diagnostic disable-next-line: need-check-nil
                     lines = lines:gsub("\\n", "\n")
+                    lines = lines:gsub("\\t", "\n")
                     -- Split into tables by \n
-                    lines = vim.fn.split(lines, "\n")
-                    return lines
+                    return vim.tbl_filter(function(line)
+                        return line ~= ""
+                    end, vim.fn.split(lines, "\n"))
                 end,
             },
         },

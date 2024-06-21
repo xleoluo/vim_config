@@ -42,6 +42,18 @@
         "language": [
           "markdown"
         ]
+      },
+      {
+        "path": "./javascript.json",
+        "language": [
+          "javascript"
+        ]
+      },
+      {
+        "path": "./typescript.json",
+        "language": [
+          "typescript"
+        ]
       }
     ]
   }

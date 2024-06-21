@@ -75,6 +75,13 @@ return {
                 TypeParameter = "",
             },
         },
+        source = {
+            enable = true,
+            groups = {
+                ["cmp_tabnine"] = "",
+                ["vim-dadbod-completion"] = "",
+            },
+        },
     },
     database = {
         {
@@ -84,14 +91,6 @@ return {
         {
             name = "postgresql(example)",
             url = "postgres://username:password@localhost:5432/db",
-        },
-        {
-            name = "Singapore Xizi",
-            url = "postgres://postgres:123@10.10.100.38:5432/xjpxz",
-        },
-        {
-            name = "ZQ",
-            url = "postgres://postgres:123456@10.10.181.137:5432/2zhongqing15.8",
         },
     },
 }

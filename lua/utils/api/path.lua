@@ -3,7 +3,7 @@ local M = {}
 ---------------------------------------------------------------------------
 
 function M.join(...)
-    return table.concat(vim.tbl_flatten({ ... }), "/")
+    return table.concat(vim.iter({ ... }):flatten():totable(), "/")
 end
 
 function M.exists(p)
@@ -34,7 +34,7 @@ end
 
 function M.generate_relative_path(p)
     local root_path =
-        table.concat(vim.tbl_flatten({ vim.fn.stdpath("config"), "lua" }), "/")
+        table.concat(vim.iter({ vim.fn.stdpath("config"), "lua" }):flatten():totable(), "/")
 
     ---@diagnostic disable-next-line: undefined-field
     local full_path = debug.getinfo(2, "S").source:sub(2)

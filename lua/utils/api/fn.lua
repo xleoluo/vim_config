@@ -82,17 +82,17 @@ function M.get_package_from_directory(dir_path, ignore_package_array)
     local package_mapping = {}
 
     local root_path =
-        table.concat(vim.tbl_flatten({ vim.fn.stdpath("config"), "lua" }), "/")
+        table.concat(vim.iter({ vim.fn.stdpath("config"), "lua" }):flatten():totable(), "/")
 
     for _, pack_path in ipairs(package_dirs) do
         local pack_name = vim.fn.fnamemodify(pack_path, ":t:r")
         if not vim.tbl_contains(ignore_package_array, pack_name) then
             local require_path = table
-                .concat(vim.tbl_flatten(
+                .concat(vim.iter(
                     { dir_path:sub(#root_path + 2), "/", pack_name },
                     ---@diagnostic disable-next-line: redundant-parameter
                     "/"
-                ))
+                ):flatten():totable())
                 :gsub("//", "/")
             local pack = require(require_path)
 
